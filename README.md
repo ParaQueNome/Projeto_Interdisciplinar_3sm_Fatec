@@ -15,7 +15,7 @@
     Igor
   </li>
   <li>
-    Giovanni
+    Giovani
   </li>
   <li>
     Guilherme
