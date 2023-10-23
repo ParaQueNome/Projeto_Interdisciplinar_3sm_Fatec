@@ -44,15 +44,15 @@
     <footer>
         <div class="contact-info">
             <div class="info">
-                <img src="telefone_icone.png" alt="Ícone de Telefone">
+            <img src="{% static 'img/telefone_icone.png' %}" alt="Imagem de Cadastro">
                 <p>(11) 1234-5678</p>
             </div>
             <div class="info">
-                <img src="email_icone.png" alt="Ícone de Email">
+            <img src="{% static 'img/email_icone.png' %}" alt="Imagem de Cadastro">
                 <p>contato@empresa.com</p>
             </div>
             <div class="info">
-                <img src="endereço_icone.png" alt="Ícone de Endereço">
+            <img src="{% static 'img/endereço_icone.png' %}" alt="Imagem de Cadastro">
                 <p>Rua da Empresa, 123</p>
             </div>
         </div>
@@ -61,44 +61,6 @@
 </body>
 </html>
 
-
-
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nome = $_POST["nome"];
-    $email = $_POST["email"];
-    $senha = $_POST["senha"];
-    $confirmaSenha = $_POST["confirmaSenha"];
-    
-    $erro = false;
-    $mensagemErro = "";
-
-    if (empty($nome) || empty($email) || empty($senha) || empty($confirmaSenha)) {
-        $erro = true;
-        $mensagemErro = "Todos os campos devem ser preenchidos.";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $erro = true;
-        $mensagemErro = "E-mail inválido.";
-    }
-
-    $temNumero = preg_match('/\d/', $senha);  
-    $temLetra = preg_match('/[A-Za-z]/', $senha);  
-
-    if (strlen($senha) < 6 || !$temNumero || !$temLetra) {
-        $erro = true;
-        $mensagemErro = "A senha deve conter pelo menos 6 caracteres, incluindo números e letras.";
-    } elseif ($senha !== $confirmaSenha) {
-        $erro = true;
-        $mensagemErro = "As senhas devem ser iguais.";
-    }
-
-    if (!$erro) {
-        echo "Cadastro realizado com sucesso!";
-    } else {
-        echo "<p style='color: red;'>Erro: $mensagemErro</p>";
-    }
-}
-?>
 
 
 
