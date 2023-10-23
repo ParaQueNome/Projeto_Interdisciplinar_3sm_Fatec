@@ -1,0 +1,131 @@
+/* Estilos gerais */
+body {
+    font-family: 'Lexend', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Cabeçalho */
+header {
+    background-color: #f2f2f2; /* Cinza claro */
+    color: #333;
+    padding: 10px 20px; /* Aumenta o espaçamento nas laterais */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.header-buttons button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+.logo img {
+    max-width: 150px; /* Aumenta um pouco a imagem da logo */
+}
+
+/* Container principal */
+.container {
+    max-width: 1440px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: center; /* Centraliza as informações horizontalmente */
+}
+
+/* Imagem à esquerda */
+.image {
+    flex: 2;
+    text-align: center;
+    padding: 20px;
+}
+
+.image img {
+    max-width: 100%;
+    height: auto;
+    max-height: 635px;
+}
+
+/* Formulário à direita */
+.form {
+    flex: 1;
+    padding: 20px;
+    background-color: #f2f2f2; /* Cinza claro */
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+
+.form h1 {
+    margin-top: 0;
+}
+
+.form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box; /* Evita que os inputs saiam do quadrado */
+}
+
+.form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+/* Rodapé */
+footer {
+    background-color: #f2f2f2; /* Cinza claro */
+    padding: 10px 20px; /* Aumenta o espaçamento nas laterais */
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Alinha informações à esquerda */
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column; /* Informações de contato uma abaixo da outra */
+    gap: 5px; /* Menos espaçamento entre as informações */
+}
+
+.contact-info .info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contact-info .info img {
+    max-width: 24px;
+    max-height: 24px;
+}
+
+.credit {
+    font-size: 12px;
+}
+
+
+
+
+
+
+
+
+
+
+
