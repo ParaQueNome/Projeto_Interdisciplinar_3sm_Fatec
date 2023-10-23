@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <link rel="stylesheet" type="text/css" href="Cadastro.css">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Cadastro.css' %}">
+    
+    
     <title>Página de Cadastro</title>
 </head>
 <body>
@@ -16,7 +20,7 @@
     </header>
     <div class="container">
         <div class="image">
-            <img src="cadastro3.jpg" alt="Imagem de Cadastro">
+        <img src="{% static 'img/cadastro3.jpg' %}" alt="Imagem de Cadastro">
         </div>
         <div class="form">
             <h1>Cadastro</h1>
