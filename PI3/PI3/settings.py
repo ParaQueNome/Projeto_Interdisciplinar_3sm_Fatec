@@ -79,10 +79,9 @@ WSGI_APPLICATION = 'PI3.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME':'foodshare',
-        'CLIENT':{
-            'host':'localhost',
-        }
+        'NAME':'FoodShare',
+        
+        
     }
 }
 
