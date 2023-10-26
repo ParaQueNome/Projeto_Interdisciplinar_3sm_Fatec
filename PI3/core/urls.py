@@ -4,7 +4,7 @@ from django.urls import include
 from .import views
 
 urlpatterns = [
-    path('cadastro', views.cadastro),
+    path('cadastro', views.cadastro, name='cadastro'),
 
 
 ]

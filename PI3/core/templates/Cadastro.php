@@ -24,18 +24,12 @@
         </div>
         <div class="form">
             <h1>Cadastro</h1>
-            <form method="POST" action="processa_cadastro.php">
-                <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" required><br>
+            <form method="POST" action="{% url 'cadastro' %}">
+                {% csrf_token %}
+                <label for="{{form.nome.id_for_label}}">Nome:</label>
+                {{form.nome}}
+                
 
-                <label for="email">E-mail:</label>
-                <input type="email" id="email" name="email" required><br>
-
-                <label for="senha">Senha:</label>
-                <input type="password" id="senha" name="senha" required><br>
-
-                <label for="confirmaSenha">Confirme a Senha:</label>
-                <input type="password" id="confirmaSenha" name="confirmaSenha" required><br>
 
                 <button type="submit">Cadastrar</button>
             </form>
