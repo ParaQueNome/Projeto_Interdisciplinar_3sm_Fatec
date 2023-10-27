@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Empresas
 from .forms import EmpresaForm
+from .services .ConexaoService import ConexaoService
+from .services .MongoConnection  import MongoConnection
 
 def cadastro(request):
     if request.method == 'POST':
@@ -12,8 +13,10 @@ def cadastro(request):
             except forms.ValidationError:
                 return HttpResponse('Nome inválido')
 
-            empresa = Empresas(nome = nome)
-            empresa.save()
+            
+            conexao = ConexaoService()
+            client = MongoConnection(conexao)
+            client.insert(nome)
 
             return HttpResponse('Cadastro realizado com sucesso')
 
