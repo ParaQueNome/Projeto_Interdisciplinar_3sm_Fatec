@@ -28,6 +28,8 @@
                 {% csrf_token %}
                 <label for="{{form.nome.id_for_label}}">Nome:</label>
                 {{form.nome}}
+                <laber for ="{{form.email.id_for_label}}">Email:</label>
+                {{form.email}}
                 
 
 
