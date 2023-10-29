@@ -7,8 +7,10 @@ class MongoConnection:
         self.db = self.client['FoodShare']
         
     
-    def insert(self, nome):
-
-        collection = self.db['core_empresas']
-        data = {'nome': nome}
+    def insert(self, **kwargs):
+        data = {}
+        collection = self.db['Empresas']
+        for key, value in kwargs.items():
+            data[key] = value
+        
         collection.insert_one(data)
