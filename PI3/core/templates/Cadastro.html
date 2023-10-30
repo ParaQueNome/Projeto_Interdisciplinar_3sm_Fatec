@@ -28,12 +28,22 @@
                 {% csrf_token %}
                 <label for="{{form.nome.id_for_label}}">Nome:</label>
                 {{form.nome}}
-                <laber for ="{{form.email.id_for_label}}">Email:</label>
+                <div class="error-msg">{{form.nome.errors}}</div>
+                <label for ="{{form.email.id_for_label}}">Email:</label>
                 {{form.email}}
+                <div class="error-msg">{{form.email.errors}}</div>
                 <label for ="{{form.cnpj.id_for_label}}">CNPJ:</label> 
                 {{form.cnpj}}
-                
-
+                <div class="error-msg">{{form.cnpj.errors}}</div>
+                <label for ="{{form.cep.id_for_label}}">CEP:</label> 
+                {{form.cep}}
+                <div class="error-msg">{{form.cep.errors}}</div>
+                <label for ="{{form.numero.id_for_label}}">Numero:</label> 
+                {{form.numero}}
+                <div class="error-msg">{{form.numero.errors}}</div>
+                <label for ="{{form.senha.id_for_label}}">Senha:</label>
+                {{form.senha}}
+                <div class="error-msg">{{form.senha.errors}}</div>
 
                 <button type="submit">Cadastrar</button>
             </form>
@@ -81,6 +91,47 @@
         cnpjField.value = cnpj;
     });
 </script>
+<script>
+    // Selecione o campo CPF
+    var cpfField = document.getElementById("cpf");
+
+    // Adicione um ouvinte de evento para formatar o CPF
+    cpfField.addEventListener('input', function () {
+        var cpf = cpfField.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+        if (cpf.length > 3) {
+            cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2");
+        }
+        if (cpf.length > 7) {
+            cpf = cpf.replace(/(\d{3})\.(\d{3})(\d)/, "$1.$2.$3");
+        }
+        if (cpf.length > 11) {
+            cpf = cpf.replace(/(\d{3})\.(\d{3})\.(\d{3})(\d)/, "$1.$2.$3-$4");
+        }
+        cpfField.value = cpf;
+    });
+
+
+</script>
+<script>
+    // Selecione o campo CEP
+    var cepField = document.getElementById("cep");
+
+    // Adicione um ouvinte de evento para formatar o CEP
+    cepField.addEventListener('input', function () {
+        var cep = cepField.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+        if (cep.length > 5) {
+            cep = cep.replace(/(\d{5})(\d{3})/, "$1-$2");
+        }
+        cepField.value = cep;
+    });
+</script>
+
+
+
+
+
+
+
 
 
 
