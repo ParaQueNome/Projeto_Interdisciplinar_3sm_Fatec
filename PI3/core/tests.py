@@ -1,6 +1,9 @@
 from django.test import TestCase
 
 from django.test import RequestFactory
+
+from .forms import EmpresaForm
+from django import forms
 from .views import cadastro
 
 # Create your tests here.
@@ -11,9 +14,19 @@ class cadastroTest(TestCase):
         request = RequestFactory().get('/cadastro')
         response = cadastro(request)
         self.assertEqual(response.status_code, 200)
-    def test_string(self):
+    
+    def test_form(self):
 
-        self.assertGreater(self.len(),5)
+        form = EmpresaForm()
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.errors, {})
+
+    def test_nome(self):
 
 
+        form = EmpresaForm({'nome': 'teste'})
+        
+        
+        
+        self.assertEqual(form.cleaned_data['nome'],'teste')
 

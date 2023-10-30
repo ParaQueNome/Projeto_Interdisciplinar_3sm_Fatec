@@ -14,17 +14,18 @@ def cadastro(request):
 
                 nome = form.clean_nome()
                 email = form.clean_email()
-            except forms.ValidationError:
-                return HttpResponse('Nome inválido')
+                cnpj = form.clean_cnpj()
+            
+            except Exception as e:
+                return HttpResponse(f'Erro: {str(e)}')
 
             
             conexao = ConexaoService()
             client = MongoConnection(conexao)
-            client.insert(nome = nome, email = email)
-            return HttpResponse('Cadastro realizado com sucesso')
-
+            client.insert(nome = nome, email = email,cnpj = cnpj)
             
+            return render(request, 'cadastro.html',{'form':EmpresaForm()})
 
     else:
-        return render(request, 'cadastro.php',{'form':EmpresaForm()})
+        return render(request, 'cadastro.html',{'form':EmpresaForm()})
     

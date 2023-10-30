@@ -30,6 +30,8 @@
                 {{form.nome}}
                 <laber for ="{{form.email.id_for_label}}">Email:</label>
                 {{form.email}}
+                <label for ="{{form.cnpj.id_for_label}}">CNPJ:</label> 
+                {{form.cnpj}}
                 
 
 
@@ -57,7 +59,28 @@
 </body>
 </html>
 
+<script>
+    // Selecione o campo CNPJ
+    var cnpjField = document.getElementById("id_cnpj");
 
+    // Adicione um ouvinte de evento para formatar o CNPJ
+    cnpjField.addEventListener('input', function () {
+        var cnpj = cnpjField.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+        if (cnpj.length > 2) {
+            cnpj = cnpj.replace(/^(\d{2})(\d)/, "$1.$2");
+        }
+        if (cnpj.length > 5) {
+            cnpj = cnpj.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
+        }
+        if (cnpj.length > 9) {
+            cnpj = cnpj.replace(/^(\d{2})\.(\d{3})\.(\d{3})(\d)/, "$1.$2.$3/$4");
+        }
+        if (cnpj.length > 13) {
+            cnpj = cnpj.replace(/^(\d{2})\.(\d{3})\.(\d{3})\/(\d{4})(\d)/, "$1.$2.$3/$4-$5");
+        }
+        cnpjField.value = cnpj;
+    });
+</script>
 
 
 
