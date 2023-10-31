@@ -123,11 +123,12 @@ footer {
 .error-msg {
     color: red;
 }
+.cadastro-form {
+    display: none;
+}
 
-
-
-
-
-
+input[type="radio"][name="tabs"]:checked + label + .cadastro-form {
+    display: block;
+}
 
 

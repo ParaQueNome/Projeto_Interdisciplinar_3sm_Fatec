@@ -10,26 +10,16 @@ def cadastro(request):
     if request.method == 'POST':
         form = EmpresaForm(request.POST)
         if form.is_valid():
-            try:
-
-                nome = form.clean_nome()
-                email = form.clean_email()
-                cnpj = form.clean_cnpj()
-                cep = form.cleanCep()
-                numero = form.cleanNumero()
-                senha = form.cleanSenha()
-            
-            except forms.ValidationError as e:
-                return render(request, 'cadastro.html', {'form': form})
-            
-
-            
-            conexao = ConexaoService()
-            client = MongoConnection(conexao)
-            client.insert(nome = nome, email = email,cnpj = cnpj, cep=cep,numero = numero, password = senha)
-            
-            return render(request, 'cadastro.html',{'form':EmpresaForm()})
+            nome = form.cleaned_data['nome']
         
+            
+
+
+
+            return render(request, 'cadastro.html', {'form': form})  # Por exemplo, renderize uma página de sucesso
+        else:
+            
+            return render(request, 'cadastro.html', {'form': form})
     else:
-        return render(request, 'cadastro.html',{'form':EmpresaForm()})
-    
+        form = EmpresaForm()
+        return render(request, 'cadastro.html', {'form': form})
