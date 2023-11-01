@@ -77,6 +77,18 @@ class PessoaForm(forms.Form):
         data_nascimento  = forms.DateField(required= True)
         numero = forms.IntegerField(required= True)
         social = forms.CharField(max_length=20, required= False)
+        error_messages = {
+        'nome_error' : 'Nome muito curto',
+        'email_error' : 'Email invalido',
+        'cnpj_error': 'CNPJ invalido',
+        'cep_error': 'CEP invalido',
+        'numero_error': 'Numero invalido',
+        'senha_error': 'A senha deve conter pelo menos 8 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.',
+        'telefone_error': 'Telefone Inválido'
+
+
+
+        }
         def clean_senha(self):
             senha = self.cleaned_data['senha']
             if len(senha) < 8 or not (any(char.isupper() for char in senha) and
@@ -85,6 +97,7 @@ class PessoaForm(forms.Form):
                              any(char in "!@#$%^&*()_+{}\":;'<>.,\\-" for char in senha)):
                 raise forms.ValidationError('A senha deve conter pelo menos 8 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.')
 
+        
             return senha
         def clean_nome(self):
             nome = self.cleaned_data['nome']

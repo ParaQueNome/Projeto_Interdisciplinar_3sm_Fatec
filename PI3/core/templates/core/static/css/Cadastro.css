@@ -130,5 +130,7 @@ footer {
 input[type="radio"][name="tabs"]:checked + label + .cadastro-form {
     display: block;
 }
-
+.errorlist {
+    color: red;
+}
 

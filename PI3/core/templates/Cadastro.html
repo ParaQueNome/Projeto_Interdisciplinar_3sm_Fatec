@@ -26,24 +26,7 @@
             <h1>Cadastro</h1>
             <form method="POST" action="{% url 'cadastro' %}">
                 {% csrf_token %}
-                <label for="{{form.nome.id_for_label}}">Nome:</label>
-                {{form.nome}}
-                <div class="error-msg">{{form.nome.errors}}</div>
-                <label for ="{{form.email.id_for_label}}">Email:</label>
-                {{form.email}}
-                <div class="error-msg">{{form.email.errors}}</div>
-                <label for ="{{form.cnpj.id_for_label}}">CNPJ:</label> 
-                {{form.cnpj}}
-                <div class="error-msg">{{form.cnpj.errors}}</div>
-                <label for ="{{form.cep.id_for_label}}">CEP:</label> 
-                {{form.cep}}
-                <div class="error-msg">{{form.cep.errors}}</div>
-                <label for ="{{form.numero.id_for_label}}">Numero:</label> 
-                {{form.numero}}
-                <div class="error-msg">{{form.numero.errors}}</div>
-                <label for ="{{form.senha.id_for_label}}">Senha:</label>
-                {{form.senha}}
-                <div class="error-msg">{{form.senha.errors}}</div>
+                {{form.as_p}}
 
                 <button type="submit">Cadastrar</button>
             </form>
