@@ -27,11 +27,8 @@
             <form method="POST" action="{% url 'cadastro' %}">
                 {% csrf_token %}
         
-                <label for="tipo-cadastro">Selecione o tipo de cadastro:</label>
-                <select id="tipo-cadastro" name="tipo-cadastro">
-                    <option value="fisica">Pessoa Física (CPF)</option>
-                    <option value="juridica">Pessoa Jurídica (CNPJ)</option>
-                </select>       
+                {{form.as_p}}
+                    
                 
         
                 <button type="submit">Prosseguir</button>
@@ -114,15 +111,3 @@
         cepField.value = cep;
     });
 </script>
-
-
-
-
-
-
-
-
-
-
-
-

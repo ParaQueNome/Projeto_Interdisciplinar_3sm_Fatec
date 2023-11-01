@@ -2,14 +2,14 @@ from .ConexaoService import ConexaoService
 
 
 class MongoConnection:
-    def __init__(self,connection) -> None:
+    def __init__(self,connection, db_name) -> None:
         self.client = connection.getConnection()
-        self.db = self.client['FoodShare']
+        self.db = self.client[db_name]
         
     
-    def insert(self, **kwargs):
+    def insert(self, collection_name, **kwargs):
         data = {}
-        collection = self.db['Empresas']
+        collection = self.db[collection_name]
         for key, value in kwargs.items():
             data[key] = value
         

@@ -134,3 +134,8 @@ input[type="radio"][name="tabs"]:checked + label + .cadastro-form {
     color: red;
 }
 
+
+.hidden-form {
+    display: none;
+ }
+   

@@ -7,19 +7,18 @@ from .services .MongoConnection  import MongoConnection
 
 
 def cadastro(request):
+    
     if request.method == 'POST':
-        form = EmpresaForm(request.POST)
-        if form.is_valid():
-            nome = form.cleaned_data['nome']
-        
-            
+        tipo_cadastro = request.POST.get('tipo_cadastro')
 
-
-
-            return render(request, 'cadastro.html', {'form': form})  # Por exemplo, renderize uma página de sucesso
-        else:
-            
-            return render(request, 'cadastro.html', {'form': form})
-    else:
-        form = EmpresaForm()
-        return render(request, 'cadastro.html', {'form': form})
+        if tipo_cadastro == 'juridica':
+            form = EmpresaForm(request.POST)
+            if form.is_valid():
+                
+                template = 'cadastroFisico.html'
+                contexto = {'form':form}
+                return render(request, template,contexto)
+            else:
+                return render(request, 'cadastroFisico.html',{'form':form})
+    
+    return render(request,'cadastro.html')
