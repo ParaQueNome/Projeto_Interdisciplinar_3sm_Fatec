@@ -14,3 +14,12 @@ class MongoConnection:
             data[key] = value
         
         collection.insert_one(data)
+
+    def find(self, collection_name, **kwargs):
+        collection = self.db[collection_name]
+        return collection.find_one(kwargs)
+    
+    def findAll(self, colletion_name, **kwargs):
+
+        collection = self.db[colletion_name]
+        return collection.find(kwargs)
