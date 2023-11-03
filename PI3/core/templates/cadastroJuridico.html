@@ -24,7 +24,7 @@
         </div>
         <div class="form">
             <h1>Cadastro</h1>
-            <form method="POST" action="{% url 'cadastro' %}">
+            <form method="POST" action="{% url 'cadastro_juridico' %}">
                 {% csrf_token %}
         
                 {{form.as_p}}

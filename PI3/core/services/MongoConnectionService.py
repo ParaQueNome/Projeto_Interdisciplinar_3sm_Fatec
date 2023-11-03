@@ -1,13 +1,13 @@
 from .ConexaoService import ConexaoService
 
 
-class MongoConnection:
-    def __init__(self,connection, db_name) -> None:
+class MongoConnectionService:
+    def __init__(self,connection : ConexaoService, db_name : str):
         self.client = connection.getConnection()
         self.db = self.client[db_name]
         
     
-    def insert(self, collection_name, **kwargs):
+    def insert(self, collection_name, **kwargs) -> None:
         data = {}
         collection = self.db[collection_name]
         for key, value in kwargs.items():
@@ -15,7 +15,7 @@ class MongoConnection:
         
         collection.insert_one(data)
 
-    def find(self, collection_name, **kwargs):
+    def findOne(self, collection_name, **kwargs):
         collection = self.db[collection_name]
         return collection.find_one(kwargs)
     
@@ -23,3 +23,6 @@ class MongoConnection:
 
         collection = self.db[colletion_name]
         return collection.find(kwargs)
+    
+    def closeConnection(self):
+        return self.client.close()

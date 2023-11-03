@@ -7,5 +7,4 @@ class ConexaoService:
         return pymongo.MongoClient("mongodb://localhost:27017/FoodShare")
 
 
-    def closeConnection(self):
-        self.close()
+    

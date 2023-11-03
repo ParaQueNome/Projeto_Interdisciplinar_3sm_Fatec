@@ -1,5 +1,9 @@
 import re
 from django import forms
+from .services.EmpresaService import EmpresaService
+from .services .ConexaoService import ConexaoService
+from .services.Repositories.EmpresaRepository import EmpresaRepository
+from .services.MongoConnectionService import MongoConnectionService
 
 class EmpresaForm(forms.Form):
     nome = forms.CharField(max_length=50, required= True)
@@ -13,8 +17,16 @@ class EmpresaForm(forms.Form):
     telefone = forms.CharField(max_length = 15, required = True, widget=forms.TextInput(attrs={'placeholder': '(99)99999-9999', 'id': 'telefone'}))
     site = forms.CharField(max_length=50, required= False)
 
+    def valida_cnpj(self):
+        connection = ConexaoService()
+        bd = MongoConnectionService(connection, 'FoodShare')
+        empresa = EmpresaService(EmpresaRepository(bd))
+        cnpj = self.cleaned_data['cnpj']
+        documento = empresa.findOne({'cnpj': cnpj})
+        if documento:
+            raise forms.ValidationError('CNPJ já cadastrado')
 
-
+        return cnpj
     def clean_nome(self):
         nome = self.cleaned_data['nome']
         if len(nome) < 5:
@@ -30,7 +42,8 @@ class EmpresaForm(forms.Form):
             
         
     def clean_cnpj(self):
-        cnpj = self.cleaned_data['cnpj']
+        
+        cnpj = self.valida_cnpj()
         if len(cnpj) < 14  and ('-' not in cnpj and '/' not in cnpj):
             
             raise forms.ValidationError('CNPJ invalido')

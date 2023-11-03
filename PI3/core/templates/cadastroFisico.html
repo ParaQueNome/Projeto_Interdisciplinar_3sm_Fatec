@@ -24,15 +24,28 @@
         </div>
         <div class="form">
             <h1>Cadastro</h1>
-            <form method="POST" action="{% url 'cadastro' %}">
+            <form method="POST" action="{% url 'cadastro_fisico' %}">
                 {% csrf_token %}
         
                 {{form.as_p}}
-                    
+                   
                 
         
                 <button type="submit">Cadastrar</button>
             </form>
+            {% if form.errors %}
+        <ul class="errorlist">
+            {% for field, errors in form.errors.items %}
+                <li>{{ field }}:
+                    <ul>
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
         </div>
     </div>
     <footer>
