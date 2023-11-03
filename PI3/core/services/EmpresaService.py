@@ -1,10 +1,10 @@
-from .Repositories.EmpresaRepository import EmpresaRepository
+from .Repositories.FoodShareRepository import FoodShareRepository
 
 
 
 class EmpresaService():
 
-    def __init__(self, empresaRepository : EmpresaRepository) -> None:
+    def __init__(self, empresaRepository : FoodShareRepository) -> None:
         self.empresaRepository = empresaRepository
 
     def insert(self, data):

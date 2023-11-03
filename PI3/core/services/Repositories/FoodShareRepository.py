@@ -1,6 +1,6 @@
 from ..MongoConnectionService import MongoConnectionService
 
-class EmpresaRepository():
+class FoodShareRepository():
 
     def __init__(self, conexao : MongoConnectionService) -> None:
         self.conexao = conexao

@@ -7,14 +7,15 @@ from .forms import EmpresaForm, PessoaForm
 from django import forms
 import re
 from .views import cadastro
-from .services.MongoConnection import MongoConnection
+from .services.MongoConnectionService import MongoConnectionService
 from .services.ConexaoService import ConexaoService
+from .services.Repositories.FoodShareRepository import FoodShareRepository
+from .services.EmpresaService import EmpresaService
 
 # Create your tests here.
-class TestMongoDb(unittest.TestCase):
-    def setUp(self):
-        self.mongo_connection = MongoConnection()
-        self.conexao_service = ConexaoService()
+
+        
+
         
 class cadastroTest(TestCase):
     def test_cadastro(self):
@@ -24,7 +25,7 @@ class cadastroTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_cadastro_post(self):
-        form_data = {'nome': 'João', 'cnpj': '12345678901234', 'email': 'jonas@gmail.com', 'cep': '123456780', 'numero': '1', 'senha': 'Senha123@'}
+        form_data = {'nome': 'João Barros', 'email': 'jonas@gmail.com','cnpj': '12.345.678/9012-34', 'cep': '123456-780', 'numero': '54', 'senha': 'Senha123@','telefone': '1982658189841'}
         form = EmpresaForm(data=form_data)
         self.assertTrue(form.is_valid())
         self.assertEqual(form.cleaned_data['nome'], 'João')
@@ -56,7 +57,7 @@ class EmpresaFormTest(TestCase):
         form_data = {'email': 'joao'}  # Email invalido
         form = EmpresaForm(data=form_data)
         self.assertFalse(form.is_valid())
-        self.assertIn('Email invalido', form.errors['email'])
+        self.assertIn('Email inválido', form.errors['email'])
 
     def test_cep_validation(self):
         form_data = {'cep': '123'}  # CEP com menos de 8 caracteres
@@ -94,7 +95,7 @@ class PessoaFormTest(TestCase):
         form_data = {'email': 'joao'}  # Email invalido
         form = PessoaForm(data=form_data)
         self.assertFalse(form.is_valid())
-        self.assertIn('Email invalido', form.errors['email'])
+        self.assertIn('Email inválido', form.errors['email'])
 
     def test_senha_validation(self):
         form_data = {'senha': 'senha'}  # Senha fraca (menos de 8 caracteres)
@@ -113,3 +114,27 @@ class PessoaFormTest(TestCase):
         form = PessoaForm(data=form_data)
         self.assertFalse(form.is_valid())
         self.assertIn('CEP invalido', form.errors['cep'])
+
+class TestMongoDb(TestCase):
+    def setUp(self):
+        self.conexao_service = ConexaoService()
+        self.mongo_connection = MongoConnectionService(self.conexao_service, 'testdb')
+        self.repository = FoodShareRepository(self.mongo_connection)
+    
+    def test_insert(self):
+        self.conexao_service = ConexaoService()
+        self.mongo_connection = MongoConnectionService(self.conexao_service, 'testdb')
+        self.repository = FoodShareRepository(self.mongo_connection)
+        data = {'nome': 'teste'}
+        result = self.repository.insert('testes',**data)
+        self.assertIsNone(result)
+    def test_findOne(self):
+        self.conexao_service = ConexaoService()
+        self.mongo_connection = MongoConnectionService(self.conexao_service, 'testdb')
+        self.repository = FoodShareRepository(self.mongo_connection)
+        data = {'nome': 'teste'}
+        result = self.repository.findOne('testes',**data)
+        print('resultado', result)
+        self.assertIsNotNone(result)
+    def tearDown(self):
+        self.mongo_connection.client.drop_database('testdb')

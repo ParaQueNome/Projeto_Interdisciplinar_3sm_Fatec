@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from .forms import EmpresaForm, PessoaForm
 from .services .ConexaoService import ConexaoService
 from .services .MongoConnectionService import MongoConnectionService
-from .services .Repositories .EmpresaRepository import EmpresaRepository
+from .services.Repositories.FoodShareRepository import FoodShareRepository
 from .services .EmpresaService import EmpresaService
 
 
@@ -25,7 +25,7 @@ def cadastro_juridico(request):
         if form.is_valid():
             connection = ConexaoService()
             bd = MongoConnectionService(connection,"FoodShare")
-            repository = EmpresaRepository(bd)
+            repository = FoodShareRepository(bd)
             empresa = EmpresaService(repository)
             erro = empresa.insert(form.cleaned_data)
             if erro is None:
@@ -37,6 +37,7 @@ def cadastro_juridico(request):
 
 def cadastro_fisico(request):
     if request.method == 'POST':
+        pass
         
 
 def listar_empresas(request):

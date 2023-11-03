@@ -2,7 +2,7 @@ import re
 from django import forms
 from .services.EmpresaService import EmpresaService
 from .services .ConexaoService import ConexaoService
-from .services.Repositories.EmpresaRepository import EmpresaRepository
+from .services.Repositories.FoodShareRepository import FoodShareRepository
 from .services.MongoConnectionService import MongoConnectionService
 
 class EmpresaForm(forms.Form):
@@ -20,7 +20,7 @@ class EmpresaForm(forms.Form):
     def valida_cnpj(self):
         connection = ConexaoService()
         bd = MongoConnectionService(connection, 'FoodShare')
-        empresa = EmpresaService(EmpresaRepository(bd))
+        empresa = EmpresaService(FoodShareRepository(bd))
         cnpj = self.cleaned_data['cnpj']
         documento = empresa.findOne({'cnpj': cnpj})
         if documento:
