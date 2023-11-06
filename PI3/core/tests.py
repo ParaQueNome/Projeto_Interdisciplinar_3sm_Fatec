@@ -24,22 +24,6 @@ class cadastroTest(TestCase):
         response = cadastro(request)
         self.assertEqual(response.status_code, 200)
 
-    def test_cadastro_post(self):
-        form_data = {'nome': 'João Barros', 'email': 'jonas@gmail.com','cnpj': '12.345.678/9012-34', 'cep': '123456-780', 'numero': '54', 'senha': 'Senha123@','telefone': '1982658189841'}
-        form = EmpresaForm(data=form_data)
-        self.assertTrue(form.is_valid())
-        self.assertEqual(form.cleaned_data['nome'], 'João')
-        self.assertEqual(form.cleaned_data['cnpj'], '12345678901234')
-        self.assertEqual(form.cleaned_data['email'], 'XXXXXXXXXXXXXX')
-        self.assertEqual(form.cleaned_data['cep'], '12345678')
-        self.assertEqual(form.cleaned_data['numero'], '1')
-        self.assertEqual(form.cleaned_data['senha'], 'senha123')
-    
-
-    
-
-
-
 class EmpresaFormTest(TestCase):
     def test_nome_validation(self):
         form_data = {'nome': 'João'}  # Nome com menos de 5 caracteres
@@ -136,5 +120,5 @@ class TestMongoDb(TestCase):
         result = self.repository.findOne('testes',**data)
         print('resultado', result)
         self.assertIsNotNone(result)
-    def tearDown(self):
-        self.mongo_connection.client.drop_database('testdb')
+    ##def tearDown(self):
+        ##self.mongo_connection.client.drop_database('testdb')

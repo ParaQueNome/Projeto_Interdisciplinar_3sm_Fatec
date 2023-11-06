@@ -37,13 +37,24 @@ def cadastro_juridico(request):
 
 def cadastro_fisico(request):
     if request.method == 'POST':
-        pass
-        
+        form = PessoaForm(request.POST)
+        if form.is_valid():
+            connection = ConexaoService()
+            bd = MongoConnectionService(connection,"FoodShare")
+            repository = FoodShareRepository(bd)
+            pessoa = EmpresaService(repository)
+            erro = pessoa.insert(form.cleaned_data)
+            if erro is None:
+                return redirect('cadastro')
+        else:
+            return render(request,'cadastroFisico.html',{'form':form})
+    form = PessoaForm()
+    return render(request,'cadastroFisico.html',{'form':form})
 
 def listar_empresas(request):
     conexao = ConexaoService()
     client = MongoConnectionService(conexao,'FoodShare')
-    empresaRe = EmpresaRepository(client)
+    empresaRe = FoodShareRepository(client)
     empresa = EmpresaService(empresaRe)
     empresas = empresa.findOne({'cnpj':'45.445.452/4564-54'})
     if empresas:

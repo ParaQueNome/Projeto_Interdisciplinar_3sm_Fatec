@@ -82,8 +82,8 @@ class EmpresaForm(forms.Form):
     
 class PessoaForm(forms.Form):
         nome = forms.CharField(max_length=25, required= True)
-        cpf = forms.CharField(max_length=13, required=True, widget=forms.TextInput(attrs={'placeholder':'999.999.999-99','id': 'cpf'}))
-        email = forms.CharField(max_length=20, required= True)
+        cpf = forms.CharField(max_length=14, required=True, widget=forms.TextInput(attrs={'placeholder':'999.999.999-99','id': 'cpf'}))
+        email = forms.CharField(max_length=50, required= True)
         telefone = forms.CharField(max_length = 15, required = True, widget=forms.TextInput(attrs={'placeholder': '(99)99999-9999', 'id': 'telefone'}))
         senha = forms.CharField(max_length=25, required= True, widget= forms.TextInput(attrs={'type' : 'password'}))
         cep = forms.CharField(max_length=9, widget=forms.TextInput(attrs={'placeholder': '99.999-999', 'id': 'cep'}))
