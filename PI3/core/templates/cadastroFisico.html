@@ -28,7 +28,7 @@
                 {% csrf_token %}
         
                 {{form.as_p}}
-                   
+                
                 
         
                 <button type="submit">Cadastrar</button>
@@ -141,5 +141,21 @@
 
             telefoneInput.value = valor;
         });
+    });
+</script>
+<script>
+    // Função para formatar a data à medida que o usuário digita
+    document.getElementById("data_nascimento").addEventListener("input", function() {
+        var inputDate = this.value;
+        
+        // Remove todos os caracteres não numéricos
+        var formattedDate = inputDate.replace(/\D/g, "");
+
+        // Aplica a formatação "dd/mm/yyyy" (ou seu formato desejado)
+        if (formattedDate.length >= 8) {
+            formattedDate = formattedDate.substring(0, 2) + "/" + formattedDate.substring(2, 4) + "/" + formattedDate.substring(4, 8);
+        }
+
+        this.value = formattedDate;
     });
 </script>

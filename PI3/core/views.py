@@ -5,6 +5,7 @@ from .services .ConexaoService import ConexaoService
 from .services .MongoConnectionService import MongoConnectionService
 from .services.Repositories.FoodShareRepository import FoodShareRepository
 from .services .EmpresaService import EmpresaService
+from .services .PessoaFisicaService import PessoaFisicaService
 from django.contrib.auth.decorators import login_required
 
 
@@ -43,7 +44,7 @@ def cadastro_fisico(request):
             connection = ConexaoService()
             bd = MongoConnectionService(connection,"FoodShare")
             repository = FoodShareRepository(bd)
-            pessoa = EmpresaService(repository)
+            pessoa = PessoaFisicaService(repository)
             erro = pessoa.insert(form.cleaned_data)
             if erro is None:
                 return redirect('cadastro')
@@ -62,3 +63,8 @@ def listar_empresas(request):
         return render(request, 'listarEmpresas.html', {'empresas': empresas})
     else: 
         return redirect('cadastro')
+    
+
+
+def doacao(self):
+    return render(self, 'doacao.html')

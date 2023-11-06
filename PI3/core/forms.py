@@ -1,3 +1,4 @@
+import datetime
 import re
 from django import forms
 from .services.EmpresaService import EmpresaService
@@ -87,7 +88,7 @@ class PessoaForm(forms.Form):
         telefone = forms.CharField(max_length = 15, required = True, widget=forms.TextInput(attrs={'placeholder': '(99)99999-9999', 'id': 'id_telefone'}))
         senha = forms.CharField(max_length=25, required= True, widget= forms.TextInput(attrs={'type' : 'password'}))
         cep = forms.CharField(max_length=9, widget=forms.TextInput(attrs={'placeholder': '99.999-999', 'id': 'cep'}))
-        data_nascimento  = forms.DateField(required= True)
+        data_nascimento  = forms.CharField(required= True,widget=forms.TextInput(attrs={'placeholder': 'dd/mm/yyyy', 'id': 'data_nascimento'}))
         numero = forms.IntegerField(required= True)
         social = forms.CharField(max_length=20, required= False)
         error_messages = {
@@ -146,3 +147,14 @@ class PessoaForm(forms.Form):
             if numero < 1:
                 raise forms.ValidationError('Numero invalido')
             return numero
+        def validar_data(data):
+            pattern = r'^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\d{4}$'
+            if not re.match(pattern, data):
+                raise forms.ValidationError('Data invalida')
+
+            dia, mes, ano = map(int, data.split('/'))
+
+            if (mes in [4, 6, 9, 11] and dia > 30) or (mes == 2 and ((ano % 4 == 0 and ano % 100 != 0) or ano % 400 == 0) and dia > 29) or (mes == 2 and dia > 28):
+                raise forms.ValidationError('Data invalida')
+
+            return data

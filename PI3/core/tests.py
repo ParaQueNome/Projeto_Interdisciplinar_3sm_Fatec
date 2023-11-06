@@ -122,3 +122,17 @@ class TestMongoDb(TestCase):
         self.assertIsNotNone(result)
     ##def tearDown(self):
         ##self.mongo_connection.client.drop_database('testdb')
+class HtmlTest(TestCase):
+
+    def test_html(self):
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'index.html')
+        self.assertTemplateUsed(response, 'base.html')
+        self.assertTemplateUsed(response, 'cadastro.html')
+        self.assertTemplateUsed(response, 'login.html')
+        self.assertTemplateUsed(response, 'cadastroJuridico.html')
+        self.assertTemplateUsed(response, 'cadastroFisico.html')
+        self.assertTemplateUsed(response, 'perfil.html')
+       
+        
