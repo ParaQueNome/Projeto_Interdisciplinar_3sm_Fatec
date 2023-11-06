@@ -5,6 +5,7 @@ from .services .ConexaoService import ConexaoService
 from .services .MongoConnectionService import MongoConnectionService
 from .services.Repositories.FoodShareRepository import FoodShareRepository
 from .services .EmpresaService import EmpresaService
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -50,7 +51,7 @@ def cadastro_fisico(request):
             return render(request,'cadastroFisico.html',{'form':form})
     form = PessoaForm()
     return render(request,'cadastroFisico.html',{'form':form})
-
+@login_required
 def listar_empresas(request):
     conexao = ConexaoService()
     client = MongoConnectionService(conexao,'FoodShare')

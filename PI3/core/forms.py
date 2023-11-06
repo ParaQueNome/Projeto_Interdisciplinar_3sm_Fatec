@@ -14,7 +14,7 @@ class EmpresaForm(forms.Form):
     senha = forms.CharField(max_length=25, required= True, widget= forms.TextInput(attrs={'type' : 'password'}))
     ramo = forms.CharField(max_length=25, required= False)
     descricao = forms.CharField(max_length=50, required= False)
-    telefone = forms.CharField(max_length = 15, required = True, widget=forms.TextInput(attrs={'placeholder': '(99)99999-9999', 'id': 'telefone'}))
+    telefone = forms.CharField(max_length = 15, required = True, widget=forms.TextInput(attrs={'placeholder': '(99)99999-9999', 'id': 'id_telefone'}))
     site = forms.CharField(max_length=50, required= False)
 
     def valida_cnpj(self):
@@ -84,7 +84,7 @@ class PessoaForm(forms.Form):
         nome = forms.CharField(max_length=25, required= True)
         cpf = forms.CharField(max_length=14, required=True, widget=forms.TextInput(attrs={'placeholder':'999.999.999-99','id': 'cpf'}))
         email = forms.CharField(max_length=50, required= True)
-        telefone = forms.CharField(max_length = 15, required = True, widget=forms.TextInput(attrs={'placeholder': '(99)99999-9999', 'id': 'telefone'}))
+        telefone = forms.CharField(max_length = 15, required = True, widget=forms.TextInput(attrs={'placeholder': '(99)99999-9999', 'id': 'id_telefone'}))
         senha = forms.CharField(max_length=25, required= True, widget= forms.TextInput(attrs={'type' : 'password'}))
         cep = forms.CharField(max_length=9, widget=forms.TextInput(attrs={'placeholder': '99.999-999', 'id': 'cep'}))
         data_nascimento  = forms.DateField(required= True)
