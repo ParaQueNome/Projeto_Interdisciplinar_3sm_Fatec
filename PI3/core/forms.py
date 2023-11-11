@@ -158,3 +158,26 @@ class PessoaForm(forms.Form):
                 raise forms.ValidationError('Data invalida')
 
             return data
+        
+class DoacaoForm(forms.Form):
+    nome = forms.CharField(max_length=50, required=True)
+    telefone = forms.CharField(max_length = 15, required = True, widget=forms.TextInput(attrs={'placeholder': '(99)99999-9999', 'id': 'id_telefone'}))
+    email = forms.CharField(max_length=50, required= True) 
+    endereco = forms.CharField(max_length=100)
+    numero = forms.IntegerField(required=True)
+    cidade = forms.CharField(max_length=50)
+    estado = forms.CharField(max_length=50)
+    cep = forms.CharField(max_length=9, widget=forms.TextInput(attrs={'placeholder': '99.999-999', 'id': 'cep'}))
+    
+    def clean_cep(self):
+            cep = self.cleaned_data['cep']
+            if len(cep) < 8:
+                raise forms.ValidationError('CEP invalido')
+                
+            
+            return cep
+    def clean_nome(self):
+            nome = self.cleaned_data['nome']
+            if len(nome) < 5:
+                raise forms.ValidationError('Nome muito curto')
+            return nome
