@@ -160,13 +160,13 @@ class PessoaForm(forms.Form):
             return data
         
 class DoacaoForm(forms.Form):
-    nome = forms.CharField(max_length=50, required=True)
-    telefone = forms.CharField(max_length = 15, required = True, widget=forms.TextInput(attrs={'placeholder': '(99)99999-9999', 'id': 'id_telefone'}))
+    nome = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs={'required placeholder': 'nome'}))
+    telefone = forms.CharField(max_length = 14, required = True, widget=forms.TextInput(attrs={'name': 'telefone','placeholder': '(99)99999-9999', 'id': 'id_telefone'}))
     email = forms.CharField(max_length=50, required= True) 
     endereco = forms.CharField(max_length=100)
     numero = forms.IntegerField(required=True)
-    cidade = forms.CharField(max_length=50)
-    estado = forms.CharField(max_length=50)
+    cidade = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'required placeholder': 'Cidade'}))
+    estado = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'required placeholder': 'Estado'}))
     cep = forms.CharField(max_length=9, widget=forms.TextInput(attrs={'placeholder': '99.999-999', 'id': 'cep'}))
     
     def clean_cep(self):
@@ -181,3 +181,16 @@ class DoacaoForm(forms.Form):
             if len(nome) < 5:
                 raise forms.ValidationError('Nome muito curto')
             return nome
+    def clean_telefone(self):
+            telefone = self.cleaned_data['telefone']
+            if len(telefone) < 11:
+                raise forms.ValidationError('Telefone invalido')
+    def clean_email(self):
+            email = self.cleaned_data['email']
+            if not re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', email):
+                raise forms.ValidationError('Email inválido')
+    def clean_numero(self):
+            numero = self.cleaned_data['numero']
+            if numero < 1:
+                raise forms.ValidationError('Numero invalido')
+            return numero

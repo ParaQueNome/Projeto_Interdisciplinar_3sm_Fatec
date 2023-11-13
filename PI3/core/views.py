@@ -1,11 +1,12 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, JsonResponse
-from .forms import EmpresaForm, PessoaForm
+from .forms import EmpresaForm, PessoaForm, DoacaoForm
 from .services .ConexaoService import ConexaoService
 from .services .MongoConnectionService import MongoConnectionService
 from .services.Repositories.FoodShareRepository import FoodShareRepository
 from .services .EmpresaService import EmpresaService
 from .services .PessoaFisicaService import PessoaFisicaService
+from .services .DoacaoService import DoacaoService
 from django.contrib.auth.decorators import login_required
 
 
@@ -50,6 +51,7 @@ def cadastro_fisico(request):
                 return redirect('cadastro')
         else:
             return render(request,'cadastroFisico.html',{'form':form})
+    pessoa.__del__
     form = PessoaForm()
     return render(request,'cadastroFisico.html',{'form':form})
 @login_required
@@ -66,5 +68,18 @@ def listar_empresas(request):
     
 
 
-def doacao(self):
-    return render(self, 'doacao.html')
+def doacao(request):
+    if request.method == 'POST':
+        form = DoacaoForm(request.POST)
+        if form.is_valid():
+            connection = ConexaoService()
+            bd = MongoConnectionService(connection,"FoodShare")
+            repository = FoodShareRepository(bd)
+            doacao = DoacaoService(repository)
+            erro = doacao.insert(form.cleaned_data)
+            if erro is None:
+                return redirect('doacao')
+        else:
+            return render(request, 'doacao.html',{'form':form})
+    form  = DoacaoForm()
+    return render(request, 'doacao.html',{'form':form})
