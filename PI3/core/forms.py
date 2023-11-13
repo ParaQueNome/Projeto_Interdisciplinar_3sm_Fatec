@@ -160,15 +160,16 @@ class PessoaForm(forms.Form):
             return data
         
 class DoacaoForm(forms.Form):
-    nome = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs={'required placeholder': 'nome'}))
+    nome = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs={'placeholder': 'nome'}))
     telefone = forms.CharField(max_length = 14, required = True, widget=forms.TextInput(attrs={'name': 'telefone','placeholder': '(99)99999-9999', 'id': 'id_telefone'}))
     email = forms.CharField(max_length=50, required= True) 
     endereco = forms.CharField(max_length=100)
     numero = forms.IntegerField(required=True)
-    cidade = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'required placeholder': 'Cidade'}))
-    estado = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'required placeholder': 'Estado'}))
+    cidade = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Cidade'}))
+    estado = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Estado'}))
     cep = forms.CharField(max_length=9, widget=forms.TextInput(attrs={'placeholder': '99.999-999', 'id': 'cep'}))
-    
+    valor = forms.IntegerField(required=True)
+
     def clean_cep(self):
             cep = self.cleaned_data['cep']
             if len(cep) < 8:
@@ -194,3 +195,8 @@ class DoacaoForm(forms.Form):
             if numero < 1:
                 raise forms.ValidationError('Numero invalido')
             return numero
+    def clean_valor(self):
+            valor = self.cleaned_data['valor']
+            if valor < 1:
+                raise forms.ValidationError('Valor invalido')
+            return valor

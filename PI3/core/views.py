@@ -83,3 +83,6 @@ def doacao(request):
             return render(request, 'doacao.html',{'form':form})
     form  = DoacaoForm()
     return render(request, 'doacao.html',{'form':form})
+
+def pagamento(request):
+    pass

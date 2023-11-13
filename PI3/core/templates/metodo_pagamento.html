@@ -35,7 +35,7 @@
 
         <div class="form-section">
             <!-- Formulário -->
-            <form method="POST" action="{%url 'doacao' %}">
+            <form>
                 <div style="display: flex; justify-content: center;">
                     <button type="button" class="doar-vez-button">Doar uma vez</button>
                     <button type="button" class="doar-mensal-button">Doar mensalmente</button>
@@ -56,7 +56,7 @@
                     <label for="nome">{{form.estado}}</label>
                     <label for="nome">{{form.cep}}</label>
                 </div><br><br>
-                    <label for="Número">Valor a doar: {{form.valor}}</label>
+
                 <label for="confirm_alimentos">
                     <input type="checkbox" id="confirm_alimentos" name="confirm_alimentos" required> Confirmo que os alimentos doados estão em boas condições e dentro do prazo de validade
                 </label><br><br>
@@ -93,56 +93,3 @@
 </body>
 
 </html>
-<script>
-    // Selecione o campo CEP
-    var cepField = document.getElementById("cep");
-
-    // Adicione um ouvinte de evento para formatar o CEP
-    cepField.addEventListener('input', function () {
-        var cep = cepField.value.replace(/\D/g, ''); // Remove caracteres não numéricos
-        if (cep.length > 5) {
-            cep = cep.replace(/(\d{5})(\d{3})/, "$1-$2");
-        }
-        cepField.value = cep;
-    });
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var telefoneInput = document.getElementById('id_telefone');
-
-        telefoneInput.addEventListener('input', function() {
-            var valor = telefoneInput.value.replace(/\D/g, '');
-
-            if (valor.length >= 11) {
-                valor = valor.replace(/^(\d{2})(\d{5})(\d{4})/, '($1)$2-$3');
-            } else if (valor.length >= 6) {
-                valor = valor.replace(/^(\d{2})(\d{4})(\d{0,4})/, '($1)$2-$3');
-            } else if (valor.length >= 2) {
-                valor = valor.replace(/^(\d{2})(\d{0,5})/, '($1)$2');
-            }
-
-            telefoneInput.value = valor;
-        });
-    });
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
