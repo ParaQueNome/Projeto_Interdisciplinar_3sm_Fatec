@@ -1,47 +1,63 @@
-/* Estilos gerais */
-body {
-    font-family: 'Lexend', Arial, sans-serif;
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lexend', Arial, sans-serif;
 }
 
-/* Cabeçalho */
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    flex-direction: column;
+    background-color: #ffffff;
+}
+
 header {
-    background-color: #f2f2f2; /* Cinza claro */
-    color: #333;
-    padding: 10px 20px; /* Aumenta o espaçamento nas laterais */
+    background-color: #ffffff;
+    color: #000000;
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 .header-buttons {
     display: flex;
     gap: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
 .header-buttons button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
+    background-color: #D5CA98;
+    color: #000;
+    border: 1px solid #000;
     border-radius: 20px;
-    padding: 5px 15px;
+    padding: 10px 30px;
     cursor: pointer;
+    font-weight: bold;
+}
+
+.header-buttons .extra-button {
+    background-color: #E9CB2F;
+    color: #000000;
+    font-weight: bold;
 }
 
 .logo img {
-    max-width: 150px; /* Aumenta um pouco a imagem da logo */
+    max-width: 150px;
 }
 
-/* Container principal */
 .container {
     max-width: 1440px;
     margin: 20px auto;
     display: flex;
-    justify-content: center; /* Centraliza as informações horizontalmente */
+    justify-content: center;
 }
 
-/* Imagem à esquerda */
 .image {
     flex: 2;
     text-align: center;
@@ -54,17 +70,16 @@ header {
     max-height: 635px;
 }
 
-/* Formulário à direita */
 .form {
-    flex: 1;
-    padding: 20px;
-    background-color: #f2f2f2; /* Cinza claro */
+    flex: 1 auto;
+    padding: 15px;
+    background-color: #D5CA98;
     border: 1px solid #000;
-    border-radius: 5px;
 }
 
 .form h1 {
     margin-top: 0;
+    text-align: center;
 }
 
 .form label {
@@ -76,32 +91,48 @@ header {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    box-sizing: border-box; /* Evita que os inputs saiam do quadrado */
+    box-sizing: border-box;
+    transition: border-radius 0.4s;
+}
+
+.form input:focus {
+    border-radius: 10px;
 }
 
 .form button {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
-    color: #fff;
+    background-color: #E9CB2F;
+    color: #000000;
     border: none;
-    border-radius: 20px;
     cursor: pointer;
+    font-weight: bold;
+    transition: all 0.5s;
+    border: 1px #000000 solid;
 }
 
-/* Rodapé */
+.form button:hover {
+    background-color: #B3C262;
+    color: #f5f5f5;
+    border-radius: 10px;
+    font-weight: bold;
+    border: 1px #000000 solid;
+}
+
 footer {
-    background-color: #f2f2f2; /* Cinza claro */
-    padding: 10px 20px; /* Aumenta o espaçamento nas laterais */
+    background-color: #D5CA98;
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start; /* Alinha informações à esquerda */
+    align-items: center;
+    width: 100%;
+    margin-top: auto;
 }
 
 .contact-info {
     display: flex;
-    flex-direction: column; /* Informações de contato uma abaixo da outra */
-    gap: 5px; /* Menos espaçamento entre as informações */
+    flex-direction: column;
+    gap: 5px;
 }
 
 .contact-info .info {
@@ -118,22 +149,6 @@ footer {
 .credit {
     font-size: 12px;
 }
-
-
-.error-msg {
-    color: red;
-}
-.cadastro-form {
-    display: none;
-}
-
-input[type="radio"][name="tabs"]:checked + label + .cadastro-form {
-    display: block;
-}
-.errorlist {
-    color: red;
-}
-
 
 .hidden-form {
     display: none;
