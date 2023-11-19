@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Formulário de Contato</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="Contato_Form.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Logo da Empresa">
+        </div>
+        <div class="header-buttons">
+            <button>Login</button>
+            <button>Cadastro</button>
+            <button>Contato</button>
+            <button class="extra-button">QUERO DOAR</button>
+        </div>
+    </header>
+
+    <section>
+        <h2>Contato</h2>
+        <div class="form-container">
+        <form action="https://api.staticforms.xyz/submit" method="POST">
+            <label>Nome:</label>
+            <input type="text" name="name" placeholder="Digite seu nome" autocomplete="off" title="Digite seu primeiro nome">
+            <label>Sobrenome:</label>
+            <input type="text" name="lastname" placeholder="Digite seu sobrenome" autocomplete="off" title="Digite seu sobrenome">
+            <label>E-mail:</label>
+            <input type="email" name="email" placeholder="Digite seu e-mail">
+            <label>Telefone:</label>
+            <input type="tel" name="phone" placeholder="(xx) xxxxx-xxxx" title="Digite um número de telefone">
+            <label>Mensagem:</label>
+            <textarea name="message" cols="30" rows="10" placeholder="Digite sua mensagem" autocomplete="off"></textarea>
+            <button type="submit">Enviar</button>
+            <input type="hidden" name="accessKey" value="410f812c-61ee-4f25-84af-69b93d6883a2">
+        </form>
+        </div>
+        <div class="image-container">
+        <img src="Contato_Form.jpg" alt="Imagem de contato">
+        </div>
+    </section>
+
+    <footer>
+        <div class="contact-info">
+            <div class="info">
+                <img src="telefone_icone.png" alt="Imagem de Telefone">
+                <p>(19) 1234-5678</p>
+            </div>
+            <div class="info">
+                <img src="email_icone.png" alt="Imagem de E-mail">
+                <p>food.share2023@gmail.com</p>
+            </div>
+            <div class="info">
+                <img src="endereço_icone.png" alt="Imagem de Endereço">
+                <p>Rua da Empresa, 123</p>
+            </div>
+        </div>
+        <p class="credit">Crédito da imagem: Nome do Autor / Freepik</p>
+    </footer>
+</body>
+
+</html>
