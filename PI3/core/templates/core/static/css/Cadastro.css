@@ -77,6 +77,21 @@ header {
     border: 1px solid #000;
 }
 
+.form select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #000;
+    margin-bottom: 5px;
+    background-color: #B3C262;
+    font-weight: bold;
+}
+
+.form select option {
+    background-color: #ffffff;
+    color: #000000;
+    padding: 10px;
+}
+
 .form h1 {
     margin-top: 0;
     text-align: center;
