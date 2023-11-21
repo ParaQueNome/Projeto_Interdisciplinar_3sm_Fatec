@@ -200,3 +200,21 @@ class DoacaoForm(forms.Form):
             if valor < 1:
                 raise forms.ValidationError('Valor invalido')
             return valor
+    
+class LoginForm(forms.Form):
+    login = forms.CharField(max_length=18, required=True, widget=forms.TextInput(attrs={'placeholder': 'CPF ou CNPJ','id': 'login'}))
+    senha = forms.CharField(max_length=25, required= True, widget= forms.TextInput(attrs={'type' : 'password'}))
+
+    def clean_login(self):
+        login = self.cleaned_data['login']
+        return login if len(login) in (14, 18) else forms.ValidationError("O login deve ter 14 ou 18 caracteres.", code='invalid_length')
+    
+    def clean_senha(self):
+        senha = self.cleaned_data['senha']
+        if len(senha) < 8 or not (any(char.isupper() for char in senha) and
+                            any(char.islower() for char in senha) and
+                            any(char.isdigit() for char in senha) and
+                            any(char in "!@#$%^&*()_+{}\":;'<>.,\\-" for char in senha)):
+            raise forms.ValidationError('A senha deve conter pelo menos 8 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.')
+        return senha
+    

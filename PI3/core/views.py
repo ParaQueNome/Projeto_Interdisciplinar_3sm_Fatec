@@ -1,12 +1,13 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, JsonResponse
-from .forms import EmpresaForm, PessoaForm, DoacaoForm
+from .forms import EmpresaForm, PessoaForm, DoacaoForm, LoginForm
 from .services .ConexaoService import ConexaoService
 from .services .MongoConnectionService import MongoConnectionService
 from .services.Repositories.FoodShareRepository import FoodShareRepository
 from .services .EmpresaService import EmpresaService
 from .services .PessoaFisicaService import PessoaFisicaService
 from .services .DoacaoService import DoacaoService
+from .services .SessionService import SessionService
 from django.contrib.auth.decorators import login_required
 
 
@@ -54,21 +55,14 @@ def cadastro_fisico(request):
     pessoa.__del__
     form = PessoaForm()
     return render(request,'cadastroFisico.html',{'form':form})
-@login_required
-def listar_empresas(request):
-    conexao = ConexaoService()
-    client = MongoConnectionService(conexao,'FoodShare')
-    empresaRe = FoodShareRepository(client)
-    empresa = EmpresaService(empresaRe)
-    empresas = empresa.findOne({'cnpj':'45.445.452/4564-54'})
-    if empresas:
-        return render(request, 'listarEmpresas.html', {'empresas': empresas})
-    else: 
-        return redirect('cadastro')
+
     
 
 
 def doacao(request):
+    if 'user_id' not in request.session:
+        
+        return redirect('login')
     if request.method == 'POST':
         form = DoacaoForm(request.POST)
         if form.is_valid():
@@ -82,7 +76,30 @@ def doacao(request):
         else:
             return render(request, 'doacao.html',{'form':form})
     form  = DoacaoForm()
-    return render(request, 'doacao.html',{'form':form})
+    return render(request, 'doacao.html',{'form':form,'session': request.session.get('username')})
 
 def pagamento(request):
     pass
+
+def login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            connection = ConexaoService()
+            bd = MongoConnectionService(connection,"FoodShare")
+            repository = FoodShareRepository(bd)
+            login = SessionService(repository)
+            collection = login.verifyUser(form.cleaned_data)
+            erro = login.authenticate(collection,form.cleaned_data)
+            print(erro)
+            if erro:
+                context = {'form':form, 'erro':'Credenciais inválidas'}
+                return render(request, 'login.html', context)
+            session = login.sessionInit(request,collection,form.cleaned_data)
+            print(session)
+            if session is None:
+                return redirect('doacao') 
+        else:
+            return render(request, 'login.html',{'form':form}) 
+    form = LoginForm()
+    return render(request, 'login.html',{'form':form})

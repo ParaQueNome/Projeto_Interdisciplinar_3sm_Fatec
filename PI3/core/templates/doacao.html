@@ -15,8 +15,12 @@
             <img src="logo_empresa.png" alt="Logo da Empresa">
         </div>
         <div class="header-buttons">
+            {%if session%}
+            <button>{{session}}</button>
+            {%else%}
             <button>Login</button>
             <button>Cadastro</button>
+            {%endif%}
             <button>Contato</button>
         </div>
     </header>
