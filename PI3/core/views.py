@@ -44,17 +44,18 @@ def cadastro_fisico(request):
         form = PessoaForm(request.POST)
         if form.is_valid():
             connection = ConexaoService()
-            bd = MongoConnectionService(connection,"FoodShare")
+            bd = MongoConnectionService(connection, "FoodShare")
             repository = FoodShareRepository(bd)
             pessoa = PessoaFisicaService(repository)
             erro = pessoa.insert(form.cleaned_data)
             if erro is None:
                 return redirect('cadastro')
         else:
-            return render(request,'cadastroFisico.html',{'form':form})
-    pessoa.__del__
+            return render(request, 'cadastroFisico.html', {'form': form})
+    
+    
     form = PessoaForm()
-    return render(request,'cadastroFisico.html',{'form':form})
+    return render(request, 'cadastroFisico.html', {'form': form})
 
     
 
