@@ -26,7 +26,8 @@
 
 <h1>Requisitos para rodar o Projeto:</h1>
 
-Configuração do Ambiente (Windows)
+**Configuração do Ambiente (Windows)**
+<font size="4">
 
 ```bash
 git clone https://github.com/ParaQueNome/Projeto_Interdisciplinar_3sm_Fatec.git
@@ -45,7 +46,8 @@ python manage.py migrate
 python manage.py test
 python manage.py runserver
 ```
-Configuração do Ambiente (Linux)
+**Configuração do Ambiente (Linux)**
+<font size="4">
 ```bash
 git clone https://github.com/ParaQueNome/Projeto_Interdisciplinar_3sm_Fatec.git
 cd PI3
