@@ -187,7 +187,18 @@ class DoacaoForm(forms.Form):
         if valor < 1:
             raise forms.ValidationError('Valor inválido')
         return valor
-    
+class DoacaoAlimentoForm(forms.Form):
+    TIPOS_ALIMENTOS = [
+        ('Bebidas','Bebidas'),
+    ]
+    tipoAlimento = forms.ChoiceField(choices=)
+    data_validade = forms.DateField(required=True, widget= forms.TextInput(attrs={'placeholder': 'dd/mm/yyyy', 'id': 'data_validade'}))
+    valor_base = forms.IntegerField(required=True)
+    ean = forms.CharField(required=True)
+
+    def clean_tipoAlimento(self):
+        pass
+        
 class LoginForm(forms.Form):
     login = forms.CharField(max_length=18, required=True, widget=forms.TextInput(attrs={'placeholder': 'CPF ou CNPJ','id': 'login'}))
     senha = forms.CharField(max_length=25, required=True, widget=forms.TextInput(attrs={'type': 'password'}))
@@ -202,5 +213,5 @@ class LoginForm(forms.Form):
                             any(char.islower() for char in senha) and
                             any(char.isdigit() for char in senha) and
                             any(char in "!@#$%^&*()_+{}\":;'<>.,\\-" for char in senha)):
-            raise forms.ValidationError('A senha deve conter pelo menos 8 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.')
+            raise forms.ValidationError('Senha inválida!')
         return senha

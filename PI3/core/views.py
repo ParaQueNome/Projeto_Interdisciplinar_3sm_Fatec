@@ -82,6 +82,7 @@ def doacao(request):
 def pagamento(request):
     pass
 
+
 def login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -92,12 +93,10 @@ def login(request):
             login = SessionService(repository)
             collection = login.verifyUser(form.cleaned_data)
             erro = login.authenticate(collection,form.cleaned_data)
-            print(erro)
             if erro:
                 context = {'form':form, 'erro':'Credenciais inválidas'}
                 return render(request, 'login.html', context)
             session = login.sessionInit(request,collection,form.cleaned_data)
-            print(session)
             if session is None:
                 return redirect('doacao') 
         else:
