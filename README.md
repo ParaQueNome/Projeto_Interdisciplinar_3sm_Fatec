@@ -6,7 +6,7 @@
 
 <ul>
   <li>
-    Fabiano
+    Fabiano Marques Soares Junior
   </li>
   <li>
     Fernando
@@ -15,7 +15,7 @@
     Igor
   </li>
   <li>
-    Giovani
+    Giovani Ruzzon de Jesus Ortega
   </li>
   <li>
     Guilherme
@@ -25,25 +25,43 @@
 ## Tema: Gestão inteligente de alimentos e Fome Zero
 
 <h1>Requisitos para rodar o Projeto:</h1>
-<ul>
-  <li>
-    Gerenciador do MongoDB(Compass);
-  </li>
-  <li>
-    MongoDB Server. Pode ser adquirido por: https://www.mongodb.com/try/download/community;
-    
-  </li>
-  <li>
-    Caso esteja usando linux, após instalar, utilize o seguinte comando no terminal: sudo systemctl start mongod ( Para inicializar o servidor)<br>
-    Para parar o servidor, digite: sudo systemctl stop mongod;
-  </li>
-  <li> 
-    Abra o MongoDB Compass e conecte com seu localhost;
-  </li>
-  <li>
-    Instale a máquina virtual 'Virtualenv' e instala os requerimentos do projeto, no arquivo 'requirementes.txt' por meio do comando: pip install -r requirements.txt;
-  </li>
-  <li> 
-    Em sua IDE de preferência, rode o projeto utilizando o comando: python manage.py runserver
-  </li>
-</ul>
+
+**Configuração do Ambiente (Windows):**
+
+```bash
+git clone https://github.com/ParaQueNome/Projeto_Interdisciplinar_3sm_Fatec.git
+cd PI3
+python -m venv venv
+venv\Scripts\activate.bat
+cd..
+cd..
+cd PI3
+pip install -r requeriments.txt
+# Inicie o MongoDB (certifique-se de ter o MongoDB instalado)
+# Você deve usar o MongoDB Compass para conectar-se ao localhost.
+# Utilize o nome 'FoodShare' na criação do banco de dados e na coleção
+# Aplicando migrações, executando testes e iniciando o servidor
+python manage.py migrate
+python manage.py test
+python manage.py runserver
+```
+---
+**Configuração do Ambiente (Linux):**
+```bash
+git clone https://github.com/ParaQueNome/Projeto_Interdisciplinar_3sm_Fatec.git
+cd PI3
+python -m venv venv
+source venv/bin/activate
+cd ..
+cd ..
+cd PI3
+pip install -r requeriments.txt
+# Inicie o MongoDB (certifique-se de ter o MongoDB instalado)
+# Você deve usar o MongoDB Compass para conectar-se ao localhost.
+# Utilize o nome 'FoodShare' na criação do banco de dados e na coleção
+# Aplicando migrações, executando testes e iniciando o servidor
+python manage.py migrate
+python manage.py test
+python manage.py runserver
+```
+
