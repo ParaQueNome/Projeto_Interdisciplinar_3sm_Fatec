@@ -45,7 +45,7 @@ python manage.py migrate
 python manage.py test
 python manage.py runserver
 ```
-<h1></h1>
+---
 **Configuração do Ambiente (Linux):**
 ```bash
 git clone https://github.com/ParaQueNome/Projeto_Interdisciplinar_3sm_Fatec.git
