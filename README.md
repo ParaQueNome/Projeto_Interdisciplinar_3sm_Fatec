@@ -25,34 +25,25 @@
 ## Tema: Gestão inteligente de alimentos e Fome Zero
 
 <h1>Requisitos para rodar o Projeto:</h1> <br>
+
 ## Configuração do Ambiente
 
-### Clonando o Repositório e Configurando Ambiente Virtual
-
-git clone https://github.com/orlandosaraivajr/Pratica_TDD_1.git
-cd Pratica_TDD_1
-python -m virtualenv venv
-cd venv
-cd Scripts
-activate.bat  # Para usuários Windows || source activate  # Para usuários Linux ou MacOS
-cd ../..
-
-### Instalando Dependências e Configurando o MongoDB
-
-pip install -r requirements.txt
-
-# Se estiver usando Linux
-sudo systemctl start mongod  # Inicializa o servidor
-sudo systemctl stop mongod  # Para o servidor
+git clone https://github.com/ParaQueNome/Projeto_Interdisciplinar_3sm_Fatec.git && \
+cd PI3 && \
+python -m virtualenv venv && \
+cd venv/Scripts && \
+activate.bat || source activate && \
+cd ../../PI3 && \
+pip install -r requirements.txt && \
+sudo systemctl start mongod && \
+sudo systemctl stop mongod
 
 # Abra o MongoDB Compass e conecte-se ao localhost.
 
 ## Executando o Projeto
 
-### Aplicando Migrações, Executando Testes e Iniciando o Servidor
-
-cd Pratica_TDD_1
-python manage.py migrate
-python manage.py test
+cd PI3 && \
+python manage.py migrate && \
+python manage.py test && \
 python manage.py runserver
 
