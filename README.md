@@ -24,26 +24,35 @@
 
 ## Tema: Gestão inteligente de alimentos e Fome Zero
 
-<h1>Requisitos para rodar o Projeto:</h1>
-<ul>
-  <li>
-    Gerenciador do MongoDB(Compass);
-  </li>
-  <li>
-    MongoDB Server. Pode ser adquirido por: https://www.mongodb.com/try/download/community;
-    
-  </li>
-  <li>
-    Caso esteja usando linux, após instalar, utilize o seguinte comando no terminal: sudo systemctl start mongod ( Para inicializar o servidor)<br>
-    Para parar o servidor, digite: sudo systemctl stop mongod;
-  </li>
-  <li> 
-    Abra o MongoDB Compass e conecte com seu localhost;
-  </li>
-  <li>
-    Instale a máquina virtual 'Virtualenv' e instala os requerimentos do projeto, no arquivo 'requirementes.txt' por meio do comando: pip install -r requirements.txt;
-  </li>
-  <li> 
-    Em sua IDE de preferência, rode o projeto utilizando o comando: python manage.py runserver
-  </li>
-</ul>
+<h1>Requisitos para rodar o Projeto:</h1> <br>
+## Configuração do Ambiente
+
+### Clonando o Repositório e Configurando Ambiente Virtual
+
+git clone https://github.com/orlandosaraivajr/Pratica_TDD_1.git
+cd Pratica_TDD_1
+python -m virtualenv venv
+cd venv
+cd Scripts
+activate.bat  # Para usuários Windows || source activate  # Para usuários Linux ou MacOS
+cd ../..
+
+### Instalando Dependências e Configurando o MongoDB
+
+pip install -r requirements.txt
+
+# Se estiver usando Linux
+sudo systemctl start mongod  # Inicializa o servidor
+sudo systemctl stop mongod  # Para o servidor
+
+# Abra o MongoDB Compass e conecte-se ao localhost.
+
+## Executando o Projeto
+
+### Aplicando Migrações, Executando Testes e Iniciando o Servidor
+
+cd Pratica_TDD_1
+python manage.py migrate
+python manage.py test
+python manage.py runserver
+
