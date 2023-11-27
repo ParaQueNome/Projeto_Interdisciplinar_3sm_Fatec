@@ -1,3 +1,4 @@
+import datetime
 import re
 from django import forms
 from .services.EmpresaService import EmpresaService
@@ -189,15 +190,55 @@ class DoacaoForm(forms.Form):
         return valor
 class DoacaoAlimentoForm(forms.Form):
     TIPOS_ALIMENTOS = [
+        ('Selecione','Selecione'),
         ('Bebidas','Bebidas'),
+        ('Pereciveis','Pereciveis'),
+        ('Laticinios','Laticinios'),
+        ('Carnes','Carnes'),
+        ('Frutas','Frutas'),
+        ('Legumes','Legumes'),
+        ('Ovos','Ovos'),
+        ('Agua Mineral','Agua Mineral')
     ]
-    tipoAlimento = forms.ChoiceField(choices=)
+    tipoAlimento = forms.ChoiceField(choices= TIPOS_ALIMENTOS,required=True)
     data_validade = forms.DateField(required=True, widget= forms.TextInput(attrs={'placeholder': 'dd/mm/yyyy', 'id': 'data_validade'}))
     valor_base = forms.IntegerField(required=True)
-    ean = forms.CharField(required=True)
+    ean = forms.CharField(required=True, max_length=13)
+    nome = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs={'placeholder': 'nome'}))
+    marca = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs={'placeholder': 'marca'}))
 
     def clean_tipoAlimento(self):
-        pass
+        tipoAlimento = self.cleaned_data['tipoAlimento']
+        if tipoAlimento == 'Selecione':
+            raise forms.ValidationError('Selecione um tipo de alimento')
+        return tipoAlimento
+    def clean_data_validade(self):
+        data_validade = self.cleaned_data['data_validade']
+        if data_validade < datetime.date.today() or data_validade < datetime.date.today() + datetime.timedelta(days=30):
+            
+            raise forms.ValidationError('Data de vencimento deve ser maior que 30 dias/Alimento vencido')
+        return data_validade
+    def clean_valor_base(self):
+        valor_base = self.cleaned_data['valor_base']
+        if valor_base < 1:
+            raise forms.ValidationError('Valor inválido')
+        return valor_base
+    def clean_nome(self):
+        nome = self.cleaned_data['nome']
+        if len(nome) < 5:
+            raise forms.ValidationError('Nome muito curto')
+        return nome 
+    def clean_marca(self):
+        marca = self.cleaned_data['marca']
+        if len(marca) < 5:
+            raise forms.ValidationError('Marca muito curta')
+        return marca
+    def clean_ean(self):
+        ean = self.cleaned_data['ean']
+        if len(ean) < 13:
+            raise forms.ValidationError('EAN inválido')
+        return ean
+        
         
 class LoginForm(forms.Form):
     login = forms.CharField(max_length=18, required=True, widget=forms.TextInput(attrs={'placeholder': 'CPF ou CNPJ','id': 'login'}))

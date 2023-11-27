@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, JsonResponse
-from .forms import EmpresaForm, PessoaForm, DoacaoForm, LoginForm
+from .forms import EmpresaForm, PessoaForm, DoacaoForm, LoginForm, DoacaoAlimentoForm
 from .services .ConexaoService import ConexaoService
 from .services .MongoConnectionService import MongoConnectionService
 from .services.Repositories.FoodShareRepository import FoodShareRepository
@@ -75,9 +75,29 @@ def doacao(request):
             if erro is None:
                 return redirect('doacao')
         else:
-            return render(request, 'doacao.html',{'form':form})
+            return render(request, 'doacao.html',{'form':form,'session': request.session.get('username')})
     form  = DoacaoForm()
     return render(request, 'doacao.html',{'form':form,'session': request.session.get('username')})
+
+@login_required(login_url='login')
+def doar_alimento(request):
+    if 'user_id' not in request.session:
+        return redirect('login')
+    if request.method == 'POST':
+        form = DoacaoAlimentoForm(request.POST)
+        if form.is_valid():
+            connection = ConexaoService()
+            bd = MongoConnectionService(connection,"FoodShare")
+            repository = FoodShareRepository(bd)
+            doacao = DoacaoService(repository)
+            erro = doacao.insert(form.cleaned_data)
+            if erro is None:
+                return redirect('doacao')
+        else:
+            return render(request, 'doacao.html',{'form':form,'session': request.session.get('username')})
+        form = DoacaoAlimentoForm()
+        return render(request, 'doacao.html',{'form':form,'session': request.session.get('username')})
+
 
 def pagamento(request):
     pass
