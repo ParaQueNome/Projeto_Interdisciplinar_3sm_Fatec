@@ -12,7 +12,7 @@
     Fernando
   </li>
   <li>
-    Igor
+    Igor Natan Silva Ferreira
   </li>
   <li>
     Giovani Ruzzon de Jesus Ortega
