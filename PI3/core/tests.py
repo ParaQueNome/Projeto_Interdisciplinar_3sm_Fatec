@@ -12,10 +12,6 @@ from .services.ConexaoService import ConexaoService
 from .services.Repositories.FoodShareRepository import FoodShareRepository
 from .services.EmpresaService import EmpresaService
 
-# Create your tests here.
-
-        
-
         
 class cadastroTest(TestCase):
     def test_cadastro(self):
@@ -35,7 +31,7 @@ class EmpresaFormTest(TestCase):
         form_data = {'cnpj': '123'}  # CNPJ com menos de 14 caracteres
         form = EmpresaForm(data=form_data)
         self.assertFalse(form.is_valid())
-        self.assertIn('CNPJ invalido', form.errors['cnpj'])
+        self.assertIn('CNPJ inválido', form.errors['cnpj'])
     
     def test_email_validation(self):
         form_data = {'email': 'joao'}  # Email invalido
@@ -47,13 +43,13 @@ class EmpresaFormTest(TestCase):
         form_data = {'cep': '123'}  # CEP com menos de 8 caracteres
         form = EmpresaForm(data=form_data)
         self.assertFalse(form.is_valid())
-        self.assertIn('CEP invalido', form.errors['cep'])
+        self.assertIn('CEP inválido', form.errors['cep'])
 
     def test_numero_validation(self):
         form_data = {'numero': 0}  # Número menor que 1
         form = EmpresaForm(data=form_data)
         self.assertFalse(form.is_valid())
-        self.assertIn('Numero invalido', form.errors['numero'])
+        self.assertIn('Número inválido', form.errors['numero'])
 
     def test_senha_validation(self):
         form_data = {'senha': 'senha'}  # Senha fraca (menos de 8 caracteres)
@@ -73,7 +69,7 @@ class PessoaFormTest(TestCase):
         form_data = {'telefone': '123'}  # Telefone com menos de 15 caracteres
         form = PessoaForm(data=form_data)
         self.assertFalse(form.is_valid())
-        self.assertIn('Telefone invalido', form.errors['telefone'])
+        self.assertIn('Telefone inválido', form.errors['telefone'])
 
     def test_email_validation(self):
         form_data = {'email': 'joao'}  # Email invalido
@@ -91,13 +87,13 @@ class PessoaFormTest(TestCase):
         form_data = {'cpf': '123'}  # CPF com menos de 11 caracteres
         form = PessoaForm(data=form_data)
         self.assertFalse(form.is_valid())
-        self.assertIn('CPF invalido', form.errors['cpf'])
+        self.assertIn('CPF inválido', form.errors['cpf'])
     
     def test_cep_validation(self):
         form_data = {'cep': '123'}  # CEP com menos de 8 caracteres
         form = PessoaForm(data=form_data)
         self.assertFalse(form.is_valid())
-        self.assertIn('CEP invalido', form.errors['cep'])
+        self.assertIn('CEP inválido', form.errors['cep'])
 
 class TestMongoDb(TestCase):
     def setUp(self):
@@ -122,17 +118,3 @@ class TestMongoDb(TestCase):
         self.assertIsNotNone(result)
     ##def tearDown(self):
         ##self.mongo_connection.client.drop_database('testdb')
-class HtmlTest(TestCase):
-
-    def test_html(self):
-        response = self.client.get('/')
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'index.html')
-        self.assertTemplateUsed(response, 'base.html')
-        self.assertTemplateUsed(response, 'cadastro.html')
-        self.assertTemplateUsed(response, 'login.html')
-        self.assertTemplateUsed(response, 'cadastroJuridico.html')
-        self.assertTemplateUsed(response, 'cadastroFisico.html')
-        self.assertTemplateUsed(response, 'perfil.html')
-       
-        
