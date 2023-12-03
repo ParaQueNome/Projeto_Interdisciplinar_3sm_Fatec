@@ -79,7 +79,7 @@ def doacao(request):
     form  = DoacaoForm()
     return render(request, 'doacao.html',{'form':form,'session': request.session.get('username')})
 
-@login_required(login_url='login')
+
 def doar_alimento(request):
     if 'user_id' not in request.session:
         return redirect('login')
@@ -90,13 +90,12 @@ def doar_alimento(request):
             bd = MongoConnectionService(connection,"FoodShare")
             repository = FoodShareRepository(bd)
             doacao = DoacaoService(repository)
-            erro = doacao.insert(form.cleaned_data)
-            if erro is None:
-                return redirect('doacao')
+            doacao.insert(form.cleaned_data,request.session.get('user_id'))
+            
         else:
-            return render(request, 'doacao.html',{'form':form,'session': request.session.get('username')})
-        form = DoacaoAlimentoForm()
-        return render(request, 'doacao.html',{'form':form,'session': request.session.get('username')})
+            return render(request, 'doacaoAlimento.html',{'form':form,'session': request.session.get('username')})
+    form = DoacaoAlimentoForm()
+    return render(request, 'doacaoAlimento.html',{'form':form,'session': request.session.get('username')})
 
 
 def pagamento(request):

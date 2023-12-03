@@ -217,7 +217,8 @@ class DoacaoAlimentoForm(forms.Form):
         if data_validade < datetime.date.today() or data_validade < datetime.date.today() + datetime.timedelta(days=30):
             
             raise forms.ValidationError('Data de vencimento deve ser maior que 30 dias/Alimento vencido')
-        return data_validade
+        data_validade_str = data_validade.strftime('%d/%m/%Y')  
+        return data_validade_str
     def clean_valor_base(self):
         valor_base = self.cleaned_data['valor_base']
         if valor_base < 1:

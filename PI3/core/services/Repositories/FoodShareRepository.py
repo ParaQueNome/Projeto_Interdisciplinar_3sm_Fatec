@@ -13,6 +13,9 @@ class FoodShareRepository():
     
     def findAll(self, collection_name, **kwargs):
         return self.conexao.findAll(collection_name,**kwargs)
+    
+    def update(self, collection_name,condicao, **kwargs):
+        self.conexao.update(collection_name,condicao, **kwargs)
         
     
     def closeConnection(self):

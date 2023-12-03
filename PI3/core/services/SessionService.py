@@ -1,6 +1,6 @@
 import logging
 from .Repositories.FoodShareRepository import FoodShareRepository
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth import login
 from bson import ObjectId
 

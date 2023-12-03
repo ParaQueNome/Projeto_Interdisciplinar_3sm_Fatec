@@ -9,5 +9,6 @@ urlpatterns = [
     path('cadastro_fisico', views.cadastro_fisico, name = 'cadastro_fisico'),
     path('doacao',views.doacao, name='doacao'),
     path('login', views.login,name='login'),
+    path('doacao_alimento',views.doar_alimento, name = 'alimento'),
     
 ]
