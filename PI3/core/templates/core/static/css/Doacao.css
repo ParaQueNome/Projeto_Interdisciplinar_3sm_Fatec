@@ -1,38 +1,52 @@
-
-
 body {
     font-family: 'Lexend', Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: rgba(0, 0, 0, 1);
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
     background-image: url('/static/img/doacao.png');
     background-repeat: no-repeat;
     background-size: cover;
-    opacity: 0.9;
-    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0.5;
+    filter: alpha(opacity=50)
 }
 
-
 header {
-    background-color: #f2f2f2;
+    background-color: #ffffff;
     color: #333;
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
 .header-buttons {
     display: flex;
     gap: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
 .header-buttons button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
+    background-color: #D5CA98;
+    color: #000000;
+    border: 1px #000000 solid;
     border-radius: 20px;
-    padding: 5px 15px;
+    padding: 10px 30px;
     cursor: pointer;
+    font-weight: bold;
 }
 
 .logo img {
@@ -49,19 +63,19 @@ header {
 
 .thank-you {
     padding: 15px;
-    color: #fff;
+    color: #ffffff;
     font-size: 36px;
-    box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    background-color: #000;
-    opacity: 0.8;
+    background-color: transparent;
+    font-weight: bold;
 }
 
 .form-section {
     padding: 20px;
-     background-color: #96BEC7;
+     background-color: #B3C262;
     border: 2px solid #000;
     border-radius: 10px;
+    align-items: center;
 }
 
 .form-section form {
@@ -80,10 +94,23 @@ header {
 .form-section input[type="text"],
 .form-section input[type="tel"],
 .form-section input[type="email"],
-.form-section input[type="checkbox"] {
+.form-section input[type="checkbox"]{
     width: 100%;
     padding: 05px;
     margin-bottom: 05px;
+}
+
+.form-section input[type="text"]:focus,
+.form-section input[type="tel"]:focus,
+.form-section input[type="email"]:focus,
+.form-section input[type="checkbox"]:focus{
+    border-radius: 10px;
+    transition: border-radius 0.4s;
+}
+
+.form-section textarea:focus {
+    border-radius: 10px;
+    transition: border-radius 0.4s;
 }
 
 .form-section input[type="checkbox"] {
@@ -98,14 +125,24 @@ header {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.5s, color 0.5s;
+    align-items: center;
+}
+
+.doar-button:hover {
+    background-color: #C72546;
+    color: #f5f5f5;
 }
 
 footer {
-    background-color: #f2f2f2;
+    background-color: #D5CA98;
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
+    width: 100%;
+    margin-top: auto;
 }
 
 .contact-info {
@@ -129,23 +166,34 @@ footer {
     font-size: 12px;
 }
 
-.doar-vez-button {
-    background-color: #007bff;
-    color: #fff;
+
+
+.doar-vez-button,
+.doar-mensal-button {
+    background-color: #000000;
+    color: #D5CA98;
     border: none;
     border-radius: 5px;
     padding: 20px;
     cursor: pointer;
-    margin-right: 15px; /* Adapte o valor conforme o espaçamento desejado */
+    margin-right: 05px;
+    font-weight: bold;
+    transition: background-color 0.4s, color 0.4s;
+    align-items: center;
 }
 
-.doar-mensal-button {
-    background-color: #fff;
-    color: #007bff;
-    border: none;
-    border-radius: 5px;
-    padding: 20px;
-    cursor: pointer;
+.doar-mensal-button:focus,
+.doar-vez-button:focus {
+    background-color: #D5CA98;
+    color: #000000;
+}
+
+.doar-mensal-button:active,
+.doar-vez-button:active,
+.doar-mensal-button:hover,
+.doar-vez-button:hover {
+    background-color: #D5CA98;
+    color: #000000;
 }
 
 .address-fields {
