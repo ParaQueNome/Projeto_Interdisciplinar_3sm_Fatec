@@ -17,6 +17,9 @@
         <div class="header-buttons">
             {%if session%}
             <button>{{session}}</button>
+            <button>Logout</button>
+            <button onclick="window.location.href='doacao_alimento'">Doar Alimento</button>
+
             {%else%}
             <button>Login</button>
             <button>Cadastro</button>

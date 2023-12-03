@@ -17,6 +17,8 @@
         <div class="header-buttons">
             {%if session%}
             <button>{{session}}</button>
+            <button>Logout</button>
+            <button>Doar Alimento<a href="doacao_alimento"></a></button>
             {%else%}
             <button>Login</button>
             <button>Cadastro</button>
@@ -45,17 +47,16 @@
                     <button type="button" class="doar-mensal-button">Doar mensalmente</button>
                 </div><br><br>
                     {% csrf_token %}
-                    {{form.as_p}}
-
-
-                
-
+                    <label for="tipoAlimento">Tipo Alimento: {{form.tipoAlimento}}</label>
+                    <label for="nome">Nome Produto: {{form.nome}}</label>
+                    <label for="marca">Marca: {{form.marca}}</label>
+                    
+        
                 <div style="display: flex;">
-                    <label for="nome">{{form.cidade}}</label>
-                    <label for="nome">{{form.estado}}</label>
-                    <label for="nome">{{form.cep}}</label>
+                    <label for="nome">Código EAN: {{form.ean}}</label>
+                    <label for="nome">Validade: {{form.data_validade}}</label>
                 </div><br><br>
-                    <label for="Número">Valor a doar: {{form.valor}}</label>
+                <label for="valorBase">Valor base: {{form.valor_base}}</label>
                 <label for="confirm_alimentos">
                     <input type="checkbox" id="confirm_alimentos" name="confirm_alimentos" required> Confirmo que os alimentos doados estão em boas condições e dentro do prazo de validade
                 </label><br><br>

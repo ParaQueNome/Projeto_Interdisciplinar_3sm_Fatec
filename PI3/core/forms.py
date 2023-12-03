@@ -206,6 +206,7 @@ class DoacaoAlimentoForm(forms.Form):
     ean = forms.CharField(required=True, max_length=13)
     nome = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs={'placeholder': 'nome'}))
     marca = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs={'placeholder': 'marca'}))
+    status = forms.CharField(initial='Pendente')
 
     def clean_tipoAlimento(self):
         tipoAlimento = self.cleaned_data['tipoAlimento']
