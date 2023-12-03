@@ -18,7 +18,7 @@
     Giovani Ruzzon de Jesus Ortega
   </li>
   <li>
-    Guilherme
+    Guilherme Augusto da Silva Afonso
   </li>
 </ul>
 
