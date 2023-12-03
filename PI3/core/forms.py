@@ -7,15 +7,15 @@ from .services.Repositories.FoodShareRepository import FoodShareRepository
 from .services.MongoConnectionService import MongoConnectionService
 
 class EmpresaForm(forms.Form):
-    nome = forms.CharField(max_length=50, required=True)
-    email = forms.CharField(max_length=20, required=True)
+    nome = forms.CharField(max_length=200, required=True widget=forms.TextInput(attrs={'placeholder': 'Digite o nome da empresa'}))
+    email = forms.CharField(max_length=200, required=True widget=forms.TextInput(attrs={'placeholder': 'Digite o e-mail da empresa'}))
     cnpj = forms.CharField(max_length=18, widget=forms.TextInput(attrs={'placeholder': '99.999.999/9999-99'}))
     cep = forms.CharField(max_length=9, widget=forms.TextInput(attrs={'placeholder': '99.999-999', 'id': 'cep'}))
-    numero = forms.IntegerField(required=True)
-    senha = forms.CharField(max_length=25, required=True, widget=forms.TextInput(attrs={'type': 'password'}))
-    ramo = forms.CharField(max_length=25, required=False)
+    numero = forms.IntegerField(required=True widget=forms.TextInput(attrs={'placeholder': 'Digite o número do endereço'}))
+    senha = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'type': 'password'}))
+    ramo = forms.CharField(max_length=50, required=False widget=forms.TextInput(attrs={'placeholder': 'Digite o ramo da empresa'}))
     descricao = forms.CharField(max_length=50, required=False)
-    telefone = forms.CharField(max_length=15, required=True, widget=forms.TextInput(attrs={'placeholder': '(99)99999-9999', 'id': 'id_telefone'}))
+    telefone = forms.CharField(max_length=15, required=True, widget=forms.TextInput(attrs={'placeholder': '(99) 99999-9999', 'id': 'id_telefone'}))
     site = forms.CharField(max_length=50, required=False)
 
     def valida_cnpj(self):
@@ -75,11 +75,11 @@ class EmpresaForm(forms.Form):
    
     
 class PessoaForm(forms.Form):
-    nome = forms.CharField(max_length=25, required=True)
+    nome = forms.CharField(max_length=200, required=True widget=forms.TextInput(attrs={'placeholder': 'Digite seu nome completo'}))
     cpf = forms.CharField(max_length=14, required=True, widget=forms.TextInput(attrs={'placeholder': '999.999.999-99','id': 'cpf'}))
-    email = forms.CharField(max_length=50, required=True)
+    email = forms.CharField(max_length=200, required=True widget=forms.TextInput(attrs={'placeholder': 'Digite seu e-mail'}))
     telefone = forms.CharField(max_length=15, required=True, widget=forms.TextInput(attrs={'placeholder': '(99)99999-9999', 'id': 'id_telefone'}))
-    senha = forms.CharField(max_length=25, required=True, widget=forms.TextInput(attrs={'type': 'password'}))
+    senha = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'type': 'password'}))
     cep = forms.CharField(max_length=9, widget=forms.TextInput(attrs={'placeholder': '99.999-999', 'id': 'cep'}))
     data_nascimento  = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': 'dd/mm/yyyy', 'id': 'data_nascimento'}))
     numero = forms.IntegerField(required=True)
@@ -143,14 +143,14 @@ class PessoaForm(forms.Form):
         return data
         
 class DoacaoForm(forms.Form):
-    nome = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs={'placeholder': 'nome'}))
+    nome = forms.CharField(max_length=200, required=True, widget=forms.TextInput(attrs={'placeholder': 'nome'}))
     telefone = forms.CharField(max_length=14, required=True, widget=forms.TextInput(attrs={'name': 'telefone','placeholder': '(99)99999-9999', 'id': 'id_telefone'}))
-    email = forms.CharField(max_length=50, required=True) 
+    email = forms.CharField(max_length=100, required=True) 
     endereco = forms.CharField(max_length=100)
     numero = forms.IntegerField(required=True)
     cidade = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Cidade'}))
     estado = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Estado'}))
-    cep = forms.CharField(max_length=9, widget=forms.TextInput(attrs={'placeholder': '99.999-999', 'id': 'cep'}))
+    cep = forms.CharField(max_length=9, widget=forms.TextInput(attrs={'placeholder': 'CEP', 'id': 'cep'}))
     valor = forms.IntegerField(required=True)
 
     def clean_cep(self):
@@ -244,7 +244,7 @@ class DoacaoAlimentoForm(forms.Form):
         
 class LoginForm(forms.Form):
     login = forms.CharField(max_length=18, required=True, widget=forms.TextInput(attrs={'placeholder': 'CPF ou CNPJ','id': 'login'}))
-    senha = forms.CharField(max_length=25, required=True, widget=forms.TextInput(attrs={'type': 'password'}))
+    senha = forms.CharField(max_length=100, required=True, widget=forms.TextInput(attrs={'type': 'password'}))
 
     def clean_login(self):
         login = self.cleaned_data['login']
