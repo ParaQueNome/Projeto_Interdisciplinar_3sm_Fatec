@@ -57,6 +57,41 @@ def cadastro_fisico(request):
     form = PessoaForm()
     return render(request, 'cadastroFisico.html', {'form': form})
 
+def relatorio(request):
+    if 'user_id' not in request.session:
+        return redirect('login')
+    
+    connection = ConexaoService()
+    bd = MongoConnectionService(connection,"FoodShare") 
+    repository = FoodShareRepository(bd)
+    doacao = DoacaoService(repository)
+    produtos = doacao.findAll(request.session.get('user_id'))
+    contexto = {
+    'alimentos': [
+        {
+            'tipoAlimento': alimento['tipoAlimento'],
+            'nome': alimento['nome'],
+            'marca': alimento['marca'],
+            'data_validade': alimento['data_validade'],
+            'status': alimento['status']
+            # Adicione outros campos conforme necessário
+        }
+        for produto in produtos
+        for alimento in produto['produtos']
+    ],
+    'session': request.session.get('username')
+}
+    doacao.__del__
+    return render(request, 'relatorios.html',contexto)
+def remover_alimento(request,alimento_id):
+
+    connection = ConexaoService()
+    bd = MongoConnectionService(connection,"FoodShare")
+    repository = FoodShareRepository(bd)
+    doacao = DoacaoService(repository)
+    doacao.delete(alimento_id,request.session.get('user_id'))
+
+    return redirect('relatorio')
     
 
 

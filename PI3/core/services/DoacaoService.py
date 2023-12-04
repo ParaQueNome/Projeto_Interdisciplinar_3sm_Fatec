@@ -14,13 +14,25 @@ class DoacaoService():
         userId = ObjectId(userId)
         userIdDict = {'_id': userId}
         collection = self.verifyUser(userIdDict)
-        condicao = {'_id': userId}  
+        condicao = {'_id': userId}
         atualizacao ={'produtos': data}
         
         self.empresaRepository.update(collection,condicao = condicao,**atualizacao)
+    
+    def delete(self, data, userId):
+        userId = ObjectId(userId)
+        userIdDict = {'_id': userId}
+        collection = self.verifyUser(userIdDict)
+        condicao = {'_id': userId}
+        atualizacao = {'produtos': data}
         
-    def findOne(self, data):
-        return self.empresaRepository.findOne('Doacoes', **data)
+        self.empresaRepository.update(collection,condicao = condicao,**atualizacao)
+    
+    def findAll(self,userId):
+        
+        userIdDict = {'_id': ObjectId(userId)}
+        collection = self.verifyUser(userIdDict)
+        return self.empresaRepository.findAll(collection, **userIdDict)
     
     def __del__(self):
         self.empresaRepository.closeConnection()

@@ -16,6 +16,8 @@ class FoodShareRepository():
     
     def update(self, collection_name,condicao, **kwargs):
         self.conexao.update(collection_name,condicao, **kwargs)
+    def updateDel(self, collection_name,condicao, **kwargs):
+        self.conexao.updateDel(collection_name,condicao, **kwargs)
         
     
     def closeConnection(self):
