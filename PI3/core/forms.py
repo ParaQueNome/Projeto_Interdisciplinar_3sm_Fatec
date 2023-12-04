@@ -187,58 +187,6 @@ class DoacaoForm(forms.Form):
         if valor < 1:
             raise forms.ValidationError('Valor inválido')
         return valor
-class DoacaoAlimentoForm(forms.Form):
-    TIPOS_ALIMENTOS = [
-        ('Selecione','Selecione'),
-        ('Bebidas','Bebidas'),
-        ('Pereciveis','Pereciveis'),
-        ('Laticinios','Laticinios'),
-        ('Carnes','Carnes'),
-        ('Frutas','Frutas'),
-        ('Legumes','Legumes'),
-        ('Ovos','Ovos'),
-        ('Agua Mineral','Agua Mineral')
-    ]
-    tipoAlimento = forms.ChoiceField(choices= TIPOS_ALIMENTOS,required=True)
-    data_validade = forms.DateField(required=True, widget= forms.TextInput(attrs={'placeholder': 'dd/mm/yyyy', 'id': 'data_validade'}))
-    valor_base = forms.IntegerField(required=True)
-    ean = forms.CharField(required=True, max_length=13)
-    nome = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs={'placeholder': 'nome'}))
-    marca = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs={'placeholder': 'marca'}))
-    status = forms.CharField(initial='Pendente')
-
-    def clean_tipoAlimento(self):
-        tipoAlimento = self.cleaned_data['tipoAlimento']
-        if tipoAlimento == 'Selecione':
-            raise forms.ValidationError('Selecione um tipo de alimento')
-        return tipoAlimento
-    def clean_data_validade(self):
-        data_validade = self.cleaned_data['data_validade']
-        if data_validade < datetime.date.today() or data_validade < datetime.date.today() + datetime.timedelta(days=30):
-            
-            raise forms.ValidationError('Data de vencimento deve ser maior que 30 dias/Alimento vencido')
-        data_validade_str = data_validade.strftime('%d/%m/%Y')  
-        return data_validade_str
-    def clean_valor_base(self):
-        valor_base = self.cleaned_data['valor_base']
-        if valor_base < 1:
-            raise forms.ValidationError('Valor inválido')
-        return valor_base
-    def clean_nome(self):
-        nome = self.cleaned_data['nome']
-        if len(nome) < 5:
-            raise forms.ValidationError('Nome muito curto')
-        return nome 
-    def clean_marca(self):
-        marca = self.cleaned_data['marca']
-        if len(marca) < 5:
-            raise forms.ValidationError('Marca muito curta')
-        return marca
-    def clean_ean(self):
-        ean = self.cleaned_data['ean']
-        if len(ean) < 13:
-            raise forms.ValidationError('EAN inválido')
-        return ean
         
         
 class LoginForm(forms.Form):
@@ -257,3 +205,60 @@ class LoginForm(forms.Form):
                             any(char in "!@#$%^&*()_+{}\":;'<>.,\\-" for char in senha)):
             raise forms.ValidationError('Senha inválida!')
         return senha
+
+class DoacaoAlimentoForm(forms.Form):
+    TIPOS_ALIMENTOS = [
+        ('Selecione','Selecione'),
+        ('Bebidas','Bebidas'),
+        ('Pereciveis','Pereciveis'),
+        ('Laticinios','Laticinios'),
+        ('Carnes','Carnes'),
+        ('Frutas','Frutas'),
+        ('Legumes','Legumes'),
+        ('Ovos','Ovos'),
+        ('Agua Mineral','Agua Mineral')
+    ]
+    
+    tipoAlimento = forms.ChoiceField(choices= TIPOS_ALIMENTOS,required=True)
+    data_validade = forms.DateField(required=True, widget= forms.TextInput(attrs={'placeholder': 'dd/mm/yyyy', 'id': 'data_validade'}))
+    valor_base = forms.FloatField(required=True)
+    ean = forms.CharField(required=True, max_length=13)
+    nome = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs={'placeholder': 'nome'}))
+    marca = forms.CharField(max_length=50, required=True, widget=forms.TextInput(attrs={'placeholder': 'marca'}))
+
+    def clean_tipoAlimento(self):
+        tipoAlimento = self.cleaned_data['tipoAlimento']
+        if tipoAlimento == 'Selecione':
+            raise forms.ValidationError('Selecione um tipo de alimento')
+        return tipoAlimento
+    
+    def clean_data_validade(self):
+        data_validade = self.cleaned_data['data_validade']
+        if data_validade < datetime.date.today() or data_validade < datetime.date.today() + datetime.timedelta(days=30):
+            raise forms.ValidationError('Data de vencimento deve ser maior que 30 dias/Alimento vencido')
+        data_validade_str = data_validade.strftime('%d/%m/%Y')  
+        return data_validade_str
+    
+    def clean_valor_base(self):
+        valor_base = self.cleaned_data['valor_base']
+        if valor_base < 1:
+            raise forms.ValidationError('Valor inválido')
+        return valor_base
+    
+    def clean_nome(self):
+        nome = self.cleaned_data['nome']
+        if len(nome) < 5:
+            raise forms.ValidationError('Nome muito curto')
+        return nome 
+    
+    def clean_marca(self):
+        marca = self.cleaned_data['marca']
+        if len(marca) < 5:
+            raise forms.ValidationError('Marca muito curta')
+        return marca
+    
+    def clean_ean(self):
+        ean = self.cleaned_data['ean']
+        if len(ean) < 13:
+            raise forms.ValidationError('EAN inválido')
+        return ean

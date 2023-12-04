@@ -120,12 +120,14 @@ def doar_alimento(request):
         return redirect('login')
     if request.method == 'POST':
         form = DoacaoAlimentoForm(request.POST)
+        print(form.is_valid())
         if form.is_valid():
             connection = ConexaoService()
             bd = MongoConnectionService(connection,"FoodShare")
             repository = FoodShareRepository(bd)
             doacao = DoacaoService(repository)
             doacao.insert(form.cleaned_data,request.session.get('user_id'))
+            return redirect('doacao')
             
         else:
             return render(request, 'doacaoAlimento.html',{'form':form,'session': request.session.get('username')})

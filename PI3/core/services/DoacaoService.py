@@ -15,6 +15,8 @@ class DoacaoService():
         userIdDict = {'_id': userId}
         collection = self.verifyUser(userIdDict)
         condicao = {'_id': userId}
+        data['_id'] = ObjectId()
+        data['status'] = 'Pendente'
         atualizacao ={'produtos': data}
         
         self.empresaRepository.update(collection,condicao = condicao,**atualizacao)
