@@ -21,14 +21,15 @@ class DoacaoService():
         
         self.empresaRepository.update(collection,condicao = condicao,**atualizacao)
     
-    def delete(self, data, userId):
+    def delete(self, alimento_id, userId):
         userId = ObjectId(userId)
+        alimento_id = ObjectId(alimento_id)
         userIdDict = {'_id': userId}
         collection = self.verifyUser(userIdDict)
         condicao = {'_id': userId}
-        atualizacao = {'produtos': data}
+        update_query = {'$pull': {'produtos': {'_id': alimento_id}}}
         
-        self.empresaRepository.update(collection,condicao = condicao,**atualizacao)
+        self.empresaRepository.delete(collection,condicao = condicao, **update_query)
     
     def findAll(self,userId):
         

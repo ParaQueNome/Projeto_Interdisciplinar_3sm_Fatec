@@ -45,6 +45,7 @@
             </tr>
         </thead>
         <tbody>
+            
             {% for alimento in alimentos %}
                 
                 <tr>
@@ -54,10 +55,11 @@
                     <td>{{ alimento.data_validade }}</td>
                     <td>{{ alimento.status }}</td>
                     <td><a href="" class="editar-button">Editar</a></td>
-                    <td><a href="{% url 'remover_alimento' alimento.id %}" class="excluir-button">Excluir</a></td>
+                    <td><a href="{% url 'remover_alimento' alimento_id=alimento.id %}" class="excluir-button">Excluir</a></td>
                 </tr>
                 
             {% endfor %}
+            
         </tbody>
     </table>
 </div>

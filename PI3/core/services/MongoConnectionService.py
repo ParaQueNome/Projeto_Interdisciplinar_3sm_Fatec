@@ -19,9 +19,9 @@ class MongoConnectionService:
         collection = self.db[collection_name]
         collection.update_one(condicao, {'$push': kwargs}, upsert=True)
 
-    def updateDel(self, collection_name,condicao, **kwargs):
+    def delete(self, collection_name,condicao, **kwargs):
         collection = self.db[collection_name]
-        collection.update_one(condicao, {'$pop': kwargs}, upsert=True)
+        collection.update_one(condicao, kwargs)
         
     def findOne(self, collection_name, **kwargs):
         collection = self.db[collection_name]

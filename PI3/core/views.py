@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from bson import ObjectId
 from django.http import HttpResponse, JsonResponse
 from .forms import EmpresaForm, PessoaForm, DoacaoForm, LoginForm, DoacaoAlimentoForm
 from .services .ConexaoService import ConexaoService
@@ -68,7 +69,8 @@ def relatorio(request):
     produtos = doacao.findAll(request.session.get('user_id'))
     contexto = {
     'alimentos': [
-        {
+        {   
+            'id': str(alimento['_id']),
             'tipoAlimento': alimento['tipoAlimento'],
             'nome': alimento['nome'],
             'marca': alimento['marca'],
@@ -84,7 +86,7 @@ def relatorio(request):
     doacao.__del__
     return render(request, 'relatorios.html',contexto)
 def remover_alimento(request,alimento_id):
-
+    alimento_id = ObjectId(alimento_id)
     connection = ConexaoService()
     bd = MongoConnectionService(connection,"FoodShare")
     repository = FoodShareRepository(bd)
