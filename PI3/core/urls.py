@@ -12,5 +12,6 @@ urlpatterns = [
     path('doacao_alimento',views.doar_alimento, name = 'alimento'),
     path('relatorios',views.relatorio, name='relatorio'),
     path('remover_alimento/<str:alimento_id>',views.remover_alimento, name='remover_alimento'),
+    path('editarDoacao/<str:alimento_id>',views.editarDoacao, name='editarDoacao'),
     
 ]

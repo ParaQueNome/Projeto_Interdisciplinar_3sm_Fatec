@@ -92,10 +92,22 @@ def remover_alimento(request,alimento_id):
     repository = FoodShareRepository(bd)
     doacao = DoacaoService(repository)
     doacao.delete(alimento_id,request.session.get('user_id'))
-
+    doacao.__del__
     return redirect('relatorio')
     
+def editarDoacao(request,alimento_id):
+    userId = request.session.get('user_id')
+    connection = ConexaoService()
+    bd = MongoConnectionService(connection,"FoodShare")
+    repository = FoodShareRepository(bd)
+    doacao = DoacaoService(repository)
 
+    produto = doacao.findOne(alimento_id,userId)
+    print(produto)
+    
+    form = DoacaoAlimentoForm(initial={'tipoAlimento':produto['produtos':{'tipoAlimento'}],'nome':produto['nome'],'marca':produto['marca'],'data_validade':produto['data_validade']})
+
+    return render(request, 'editarDoacao.html',{'form':form,'session': request.session.get('username'),'alimento_id':alimento_id})
 
 def doacao(request):
     if 'user_id' not in request.session:

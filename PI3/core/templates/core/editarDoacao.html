@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Página de Doação</title>
+    
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Doacao.css' %}">
+</head>
+
+<body>
+    <header>
+        <!-- Cabeçalho -->
+        <div class="logo">
+            <img src="logo_empresa.png" alt="Logo da Empresa">
+        </div>
+        <div class="header-buttons">
+            {%if session%}
+            <button>{{session}}</button>
+            <button>Logout</button>
+            <button onclick="window.location.href='doacao_alimento'">Doar Alimento</button>
+            <button onclick="window.location.href='relatorios'">Relatórios</button>
+            {%else%}
+            <button>Login</button>
+            <button>Cadastro</button>
+            {%endif%}
+            <button>Contato</button>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div class="thank-you">
+            <!-- Texto de agradecimento -->
+            <h1>OBRIGADO POR DOAR!!!</h1>
+            <p>Gostaríamos de expressar nossa mais profunda gratidão por sua generosa contribuição para o nosso site de doação de alimentos.<br>
+             Seu apoio é inestimável e fundamental para o sucesso desta iniciativa. <br>
+             Com a sua ajuda, pudemos oferecer assistência alimentar a quem mais precisa. <br>
+             Obrigado por fazer parte desta jornada e por ser a luz que ilumina o caminho dos que necessitam. <br>
+             Sua solidariedade é incrivelmente valiosa.</p>
+            <p>Com gratidão,<br>Equipe Food Share</p>
+        </div>
+
+        <div class="form-section">
+            <!-- Formulário -->
+            <form method="POST" action="{% url 'alimento' %}">
+                <div style="display: flex; justify-content: center;">
+                    <button type="button" class="doar-vez-button">Doar uma vez</button>
+                    <button type="button" class="doar-mensal-button">Doar mensalmente</button>
+                </div><br><br>
+        
+                {% csrf_token %}
+                <label for="tipoAlimento">Tipo Alimento: {{ form.tipoAlimento }}</label>
+                {% for error in form.tipoAlimento.errors %}
+                    <p class="error">{{ error }}</p>
+                {% endfor %}
+        
+                <label for="nome">Nome Produto: {{ form.nome }}</label>
+                {% for error in form.nome.errors %}
+                    <p class="error">{{ error }}</p>
+                {% endfor %}
+        
+                <label for="marca">Marca: {{ form.marca }}</label>
+                {% for error in form.marca.errors %}
+                    <p class="error">{{ error }}</p>
+                {% endfor %}
+        
+                <div style="display: flex;">
+                    <label for="nome">Código EAN: {{ form.ean }}</label>
+                    {% for error in form.ean.errors %}
+                        <p class="error">{{ error }}</p>
+                    {% endfor %}
+        
+                    <label for="nome">Validade: {{ form.data_validade }}</label>
+                    {% for error in form.data_validade.errors %}
+                        <p class="error">{{ error }}</p>
+                    {% endfor %}
+                </div><br><br>
+        
+                <label for="valorBase">Valor base: {{ form.valor_base }}</label>
+                {% for error in form.valor_base.errors %}
+                    <p class="error">{{ error }}</p>
+                {% endfor %}
+        
+                <label for="confirm_alimentos">
+                    <input type="checkbox" id="confirm_alimentos" name="confirm_alimentos" required>
+                    Confirmo que os alimentos doados estão em boas condições e dentro do prazo de validade
+                </label><br><br>
+        
+                <label for="confirm_privacidade">
+                    <input type="checkbox" id="confirm_privacidade" name="confirm_privacidade" required>
+                    Li e concordo com a Política de Privacidade e o uso dos meus dados pessoais para a finalidade indicada
+                </label><br><br>
+        
+                <div style="display: flex; justify-content: center;">
+                    <button type="submit" class="doar-button">DOAR</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <!-- Rodapé -->
+        <div class="contact-info">
+            <div class="info">
+                <img src="{% static 'img/telefone_icone.png' %}" alt="Imagem de Telefone">
+                <p>(11) 1234-5678</p>
+            </div>
+            <div class="info">
+                <img src="{% static 'img/email_icone.png' %}" alt="Imagem de Cadastro">
+                <p>contato@empresa.com</p>
+            </div>
+            <div class="info">
+                <img src="{% static 'img/endereço_icone.png' %}" alt="Imagem de Cadastro">
+                <p>Rua da Empresa, 123</p>
+            </div>
+        </div>
+        <p class="credit">Crédito da imagem: Nome do Autor / Freepik</p>
+    </footer>
+</body>
+
+</html>
+<script>
+    // Selecione o campo CEP
+    var cepField = document.getElementById("cep");
+
+    // Adicione um ouvinte de evento para formatar o CEP
+    cepField.addEventListener('input', function () {
+        var cep = cepField.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+        if (cep.length > 5) {
+            cep = cep.replace(/(\d{5})(\d{3})/, "$1-$2");
+        }
+        cepField.value = cep;
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var telefoneInput = document.getElementById('id_telefone');
+
+        telefoneInput.addEventListener('input', function() {
+            var valor = telefoneInput.value.replace(/\D/g, '');
+
+            if (valor.length >= 11) {
+                valor = valor.replace(/^(\d{2})(\d{5})(\d{4})/, '($1)$2-$3');
+            } else if (valor.length >= 6) {
+                valor = valor.replace(/^(\d{2})(\d{4})(\d{0,4})/, '($1)$2-$3');
+            } else if (valor.length >= 2) {
+                valor = valor.replace(/^(\d{2})(\d{0,5})/, '($1)$2');
+            }
+
+            telefoneInput.value = valor;
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

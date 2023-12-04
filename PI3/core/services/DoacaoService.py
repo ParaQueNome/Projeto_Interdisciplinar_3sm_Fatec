@@ -31,6 +31,12 @@ class DoacaoService():
         
         self.empresaRepository.delete(collection,condicao = condicao, **update_query)
     
+    def findOne(self,alimento_id,userId):
+        userIdDict = {'_id': ObjectId(userId)}
+        collection = self.verifyUser(userIdDict)
+        filter_dict = {'_id': ObjectId(userId), 'produtos._id': ObjectId(alimento_id)}
+        return self.empresaRepository.findOne(collection, **filter_dict)
+    
     def findAll(self,userId):
         
         userIdDict = {'_id': ObjectId(userId)}

@@ -54,8 +54,14 @@
                     <td>{{ alimento.marca }}</td>
                     <td>{{ alimento.data_validade }}</td>
                     <td>{{ alimento.status }}</td>
-                    <td><a href="" class="editar-button">Editar</a></td>
+                    {% if alimento.status == 'Pendente' %}
+                    <td><a href="{%url 'editarDoacao' alimento_id=alimento.id %}" class="editar-button">Editar</a></td>
                     <td><a href="{% url 'remover_alimento' alimento_id=alimento.id %}" class="excluir-button">Excluir</a></td>
+                    {%else%}
+
+
+                    <td><a href="{% url 'remover_alimento' alimento_id=alimento.id %}" class="excluir-button">Excluir</a></td>
+                    {%endif%}
                 </tr>
                 
             {% endfor %}
