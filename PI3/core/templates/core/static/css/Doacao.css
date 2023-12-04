@@ -2,6 +2,7 @@ body {
     font-family: 'Lexend', Arial, sans-serif;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     background-repeat: no-repeat;
     background-size: cover;
     background-color: rgba(0, 0, 0, 1);
@@ -19,34 +20,40 @@ body::before {
     background-repeat: no-repeat;
     background-size: cover;
     opacity: 0.5;
-    filter: alpha(opacity=50)
+    filter: alpha(opacity=50);
 }
 
 header {
     background-color: #ffffff;
-    color: #333;
+    color: #333333;
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .header-buttons {
     display: flex;
     gap: 10px;
-    justify-content: center;
     align-items: center;
 }
 
 .header-buttons button {
     background-color: #D5CA98;
-    color: #000000;
-    border: 1px #000000 solid;
+    color: #333333;
+    border: none;
     border-radius: 20px;
     padding: 10px 30px;
     cursor: pointer;
     font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.header-buttons .extra-button {
+    background-color: #e91e63; /* Pink */
+    color: #ffffff;
 }
 
 .logo img {
@@ -58,28 +65,31 @@ header {
     align-items: flex-start;
     justify-content: space-between;
     margin: 20px;
-
 }
 
 .thank-you {
+    display: flex;
     padding: 15px;
     color: #ffffff;
     font-size: 36px;
     border-radius: 10px;
     background-color: transparent;
     font-weight: bold;
+    max-width: 70%;
 }
 
 .form-section {
     padding: 20px;
-     background-color: #B3C262;
-    border: 2px solid #000;
+    background-color: #B3C262;
+    border: 2px solid #333333;
     border-radius: 10px;
     align-items: center;
+    flex: 1; /* Added flex property */
 }
 
 .form-section form {
     display: flex;
+
     flex-direction: column;
 }
 
@@ -88,22 +98,22 @@ header {
 }
 
 .form-section label {
-    margin-bottom: 08px;
+    margin-bottom: 8px;
 }
 
 .form-section input[type="text"],
 .form-section input[type="tel"],
 .form-section input[type="email"],
-.form-section input[type="checkbox"]{
+.form-section input[type="checkbox"] {
     width: 100%;
-    padding: 05px;
-    margin-bottom: 05px;
+    padding: 5px;
+    margin-bottom: 5px;
 }
 
 .form-section input[type="text"]:focus,
 .form-section input[type="tel"]:focus,
 .form-section input[type="email"]:focus,
-.form-section input[type="checkbox"]:focus{
+.form-section input[type="checkbox"]:focus {
     border-radius: 10px;
     transition: border-radius 0.4s;
 }
@@ -121,7 +131,7 @@ header {
     width: 100%;
     padding: 15px;
     background-color: #ffd700;
-    color: #000;
+    color: #333333;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -143,6 +153,7 @@ footer {
     align-items: center;
     width: 100%;
     margin-top: auto;
+    box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .contact-info {
@@ -166,8 +177,6 @@ footer {
     font-size: 12px;
 }
 
-
-
 .doar-vez-button,
 .doar-mensal-button {
     background-color: #000000;
@@ -176,7 +185,7 @@ footer {
     border-radius: 5px;
     padding: 20px;
     cursor: pointer;
-    margin-right: 05px;
+    margin-right: 5px;
     font-weight: bold;
     transition: background-color 0.4s, color 0.4s;
     align-items: center;
@@ -205,14 +214,3 @@ footer {
     flex: 1;
     margin: 0 5px;
 }
-
-
-
-
-
-
-
-
-
-
-
