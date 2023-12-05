@@ -35,7 +35,15 @@ class DoacaoService():
         userIdDict = {'_id': ObjectId(userId)}
         collection = self.verifyUser(userIdDict)
         filter_dict = {'_id': ObjectId(userId), 'produtos._id': ObjectId(alimento_id)}
-        return self.empresaRepository.findOne(collection, **filter_dict)
+        result = self.empresaRepository.findOne(collection, **filter_dict)
+
+        produto = None
+        if result and 'produtos' in result:
+            for prod in result['produtos']:
+                if prod['_id'] == ObjectId(alimento_id):
+                    produto = prod
+                    break
+        return produto
     
     def findAll(self,userId):
         

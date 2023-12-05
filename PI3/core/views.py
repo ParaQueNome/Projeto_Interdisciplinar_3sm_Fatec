@@ -105,7 +105,7 @@ def editarDoacao(request,alimento_id):
     produto = doacao.findOne(alimento_id,userId)
     print(produto)
     
-    form = DoacaoAlimentoForm(initial={'tipoAlimento':produto['produtos':{'tipoAlimento'}],'nome':produto['nome'],'marca':produto['marca'],'data_validade':produto['data_validade']})
+    form = DoacaoAlimentoForm(initial={'tipoAlimento':produto['tipoAlimento'],'nome':produto['nome'],'marca':produto['marca'],'ean':produto['ean'],'data_validade':produto['data_validade'],'valor_base':produto['valor_base']})
 
     return render(request, 'editarDoacao.html',{'form':form,'session': request.session.get('username'),'alimento_id':alimento_id})
 
