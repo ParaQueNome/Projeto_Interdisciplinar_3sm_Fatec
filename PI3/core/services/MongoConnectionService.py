@@ -14,7 +14,10 @@ class MongoConnectionService:
             data[key] = value
         
         collection.insert_one(data)
-    
+    def updateOne(self, collection_name,condicao, **kwargs) -> None:
+        collection = self.db[collection_name]
+        collection.update_one(condicao, kwargs, upsert=True)
+        
     def update(self, collection_name,condicao, **kwargs) -> None:
         collection = self.db[collection_name]
         collection.update_one(condicao, {'$push': kwargs}, upsert=True)

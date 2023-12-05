@@ -173,3 +173,28 @@ def login(request):
             return render(request, 'login.html',{'form':form}) 
     form = LoginForm()
     return render(request, 'login.html',{'form':form})
+
+def processar_atualizacao(request, alimento_id):
+    
+    connection = ConexaoService()
+    bd = MongoConnectionService(connection, "FoodShare")
+    repository = FoodShareRepository(bd)
+    doacao = DoacaoService(repository)
+
+    if request.method == 'POST':
+        form = DoacaoAlimentoForm(request.POST)
+        if form.is_valid():
+            dados_atualizados = {
+                'tipoAlimento': form.cleaned_data['tipoAlimento'],
+                'data_validade': form.cleaned_data['data_validade'],
+                'valor_base': form.cleaned_data['valor_base'],
+                'ean': form.cleaned_data['ean'],
+                'nome': form.cleaned_data['nome'],
+                'marca': form.cleaned_data['marca'],
+            }
+
+            doacao.update(request.session.get('user_id'),alimento_id, dados_atualizados)
+            return redirect('relatorio')
+
+    # Lidar com o caso em que o método da solicitação não é POST
+    return redirect('alguma_pagina_de_erro')

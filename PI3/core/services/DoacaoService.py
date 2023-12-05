@@ -44,7 +44,15 @@ class DoacaoService():
                     produto = prod
                     break
         return produto
-    
+    def update(self, userId,alimento_id, dados_atualizados):
+        userId = ObjectId(userId)
+        alimento_id = ObjectId(alimento_id)
+        userIdDict = {'_id': userId}
+        collection = self.verifyUser(userIdDict)
+        condicao = {'_id': userId, 'produtos._id': alimento_id}
+        update_query = {'$set': {'produtos.$': dados_atualizados}}
+        self.empresaRepository.updateOne(collection,condicao = condicao,**update_query)
+
     def findAll(self,userId):
         
         userIdDict = {'_id': ObjectId(userId)}

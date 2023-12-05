@@ -42,7 +42,7 @@
 
         <div class="form-section">
             <!-- Formulário -->
-            <form method="POST" action="{% url 'alimento' %}">
+            <form method="POST" action="{% url 'processar_atualizacao' alimento_id=alimento_id %}">
                 <div style="display: flex; justify-content: center;">
                     <button type="button" class="doar-vez-button">Doar uma vez</button>
                     <button type="button" class="doar-mensal-button">Doar mensalmente</button>
