@@ -50,6 +50,8 @@ class DoacaoService():
         userIdDict = {'_id': userId}
         collection = self.verifyUser(userIdDict)
         condicao = {'_id': userId, 'produtos._id': alimento_id}
+        dados_atualizados['_id'] = alimento_id
+        dados_atualizados['status'] = 'Pendente'
         update_query = {'$set': {'produtos.$': dados_atualizados}}
         self.empresaRepository.updateOne(collection,condicao = condicao,**update_query)
 

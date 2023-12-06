@@ -3,7 +3,7 @@ from django.test import TestCase
 
 from django.test import RequestFactory
 
-from .forms import EmpresaForm, PessoaForm
+from .forms import DoacaoAlimentoForm, EmpresaForm, PessoaForm
 from django import forms
 import re
 from .views import cadastro
@@ -94,6 +94,34 @@ class PessoaFormTest(TestCase):
         form = PessoaForm(data=form_data)
         self.assertFalse(form.is_valid())
         self.assertIn('CEP inválido', form.errors['cep'])
+
+class DoacaoAlimentoFormTest(TestCase):
+    def test_quantidade_validation(self):
+        form_data = {'nome': 'nome'}  # Quantidade menor que 1
+        form = DoacaoAlimentoForm(data=form_data)
+        self.assertFalse(form.is_valid())
+        self.assertIn('Nome muito curto', form.errors['nome'])
+    
+    def test_data_validation(self):
+
+        form_data = {'data': '01-01-2023'}  # Data inválida
+        form = DoacaoAlimentoForm(data=form_data)
+        self.assertFalse(form.is_valid())
+        self.assertIn('This field is required.', form.errors['data_validade'])
+
+    def test_ean(self):
+        form_data = {'ean': '123'}  # EAN inválido
+        form = DoacaoAlimentoForm(data=form_data)
+        self.assertFalse(form.is_valid())
+        self.assertIn('EAN inválido', form.errors['ean'])
+
+    def test_valor_base(self):
+        form_data = {'valor_base': '0'}  # Valor base inválido
+        form = DoacaoAlimentoForm(data=form_data)
+        self.assertFalse(form.is_valid())
+        self.assertIn('Valor inválido', form.errors['valor_base'])
+
+
 
 class TestMongoDb(TestCase):
     def setUp(self):

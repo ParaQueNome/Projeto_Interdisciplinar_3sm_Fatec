@@ -197,4 +197,4 @@ def processar_atualizacao(request, alimento_id):
             return redirect('relatorio')
 
     # Lidar com o caso em que o método da solicitação não é POST
-    return redirect('alguma_pagina_de_erro')
+    return redirect('relatorio')
