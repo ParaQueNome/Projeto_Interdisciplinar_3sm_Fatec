@@ -14,5 +14,5 @@ urlpatterns = [
     path('remover_alimento/<str:alimento_id>',views.remover_alimento, name='remover_alimento'),
     path('editarDoacao/<str:alimento_id>',views.editarDoacao, name='editarDoacao'),
     path('processar_atualizacao/<str:alimento_id>',views.processar_atualizacao, name='processar_atualizacao'),
-    
+    path('registroDoacao', views.registrarDoacao, name='registroDoacao'),
 ]

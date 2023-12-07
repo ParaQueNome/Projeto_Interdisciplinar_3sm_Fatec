@@ -3,6 +3,7 @@ import re
 from django import forms
 from .services.EmpresaService import EmpresaService
 from .services.ConexaoService import ConexaoService
+from .services.AdminServicer import AdminService
 from .services.Repositories.FoodShareRepository import FoodShareRepository
 from .services.MongoConnectionService import MongoConnectionService
 
@@ -262,3 +263,57 @@ class DoacaoAlimentoForm(forms.Form):
         if len(ean) < 13:
             raise forms.ValidationError('EAN inválido')
         return ean
+    
+
+class DoacaoEstoqueForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        conexao = ConexaoService()
+        db = MongoConnectionService(conexao,'FoodShare')
+        repository = FoodShareRepository(db)
+        service = AdminService(repository)
+        alimentos = service.findAll()
+        if alimentos:
+            opcoes = [(alimento['nome'], alimento['nome']) for alimento in alimentos]
+            self.fields['alimento'] = forms.ChoiceField(choices=opcoes, required=True)
+    
+    nome = forms.CharField(max_length=100, required=True)
+    email = forms.EmailField(required=True)
+    telefone = forms.CharField(max_length=14, required=True, widget=forms.TextInput(attrs={'name': 'telefone','placeholder': '(99)99999-9999', 'id': 'id_telefone'}))
+    estabelecimento = forms.CharField(max_length=100, required=True)
+
+
+    def clean_nome(self):
+        nome = self.cleaned_data["nome"]
+        if nome.isnumeric():
+            raise forms.ValidationError("Nome não pode ser numerico")
+        return nome
+
+    # telefone do requerente deve conter 11 numeros
+    def clean_telefone(self):
+        telefone = self.cleaned_data['telefone']
+        if len(telefone) < 11:
+            raise forms.ValidationError('Telefone inválido')
+        return telefone
+
+    # email deve conter @
+    def clean_email(self):
+        email = self.cleaned_data["email"]
+        if "@" not in email:
+            raise forms.ValidationError("Email deve conter @")
+        return email
+
+    # nao deve conter numero e caracteres especiais
+    def clean_alimento(self):
+        alimento = self.cleaned_data["alimento"]
+        if alimento.isnumeric():
+            raise forms.ValidationError("Alimento não pode ser numerico")
+        return alimento
+    
+    def clean_estabelecimento(self):
+        estabelecimento = self.cleaned_data["estabelecimento"]
+        if estabelecimento.isnumeric():
+            raise forms.ValidationError("Estabelecimento não pode ser numerico")
+        return estabelecimento
+    
+        

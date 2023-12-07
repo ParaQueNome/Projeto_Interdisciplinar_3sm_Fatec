@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from bson import ObjectId
 from django.http import HttpResponse, JsonResponse
-from .forms import EmpresaForm, PessoaForm, DoacaoForm, LoginForm, DoacaoAlimentoForm
+from .forms import EmpresaForm, PessoaForm, DoacaoForm, LoginForm, DoacaoAlimentoForm, DoacaoEstoqueForm
 from .services .ConexaoService import ConexaoService
 from .services .MongoConnectionService import MongoConnectionService
 from .services.Repositories.FoodShareRepository import FoodShareRepository
@@ -9,6 +9,7 @@ from .services .EmpresaService import EmpresaService
 from .services .PessoaFisicaService import PessoaFisicaService
 from .services .DoacaoService import DoacaoService
 from .services .SessionService import SessionService
+from .services.AdminServicer import AdminService
 from django.contrib.auth.decorators import login_required
 
 
@@ -76,7 +77,7 @@ def relatorio(request):
             'marca': alimento['marca'],
             'data_validade': alimento['data_validade'],
             'status': alimento['status']
-            # Adicione outros campos conforme necessário
+            
         }
         for produto in produtos
         for alimento in produto['produtos']
@@ -198,3 +199,24 @@ def processar_atualizacao(request, alimento_id):
 
     # Lidar com o caso em que o método da solicitação não é POST
     return redirect('relatorio')
+
+def registrarDoacao(request):
+    if 'user_id' not in request.session and 'username' != 'admin':
+        return redirect('login')
+    if request.method == 'POST':
+        form = DoacaoEstoqueForm(request.POST)
+        if form.is_valid():
+            connection = ConexaoService()
+            bd = MongoConnectionService(connection,"FoodShare")
+            repository = FoodShareRepository(bd)
+            doacao = AdminService(repository)
+            erro = doacao.insert(form.cleaned_data)
+            if erro is None:
+                return redirect('doacao')
+        else:
+            return render(request, 'registroDoacao.html', {'form': form})
+        
+    form = DoacaoEstoqueForm()
+    return render(request, 'registroDoacao.html',{'form':form,'session': request.session.get('username')})
+    
+        
