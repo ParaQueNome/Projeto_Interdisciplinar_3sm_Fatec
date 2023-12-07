@@ -18,13 +18,17 @@ class AdminService():
                     produto = prod['produtos']
                     break
         result = self.repository.findAll('Pessoas', **{})
+        produto1 = None
         if result:
             for prod in result:
                 if prod and 'produtos' in prod:
-                    produto = prod['produtos']
+                    produto1 = prod['produtos']
                     break
-        return produto
-            
+        
+        total = produto + produto1
+        print(total)
+        return total
+        
     def insert(self,data):
         data['data_registro'] = datetime.now()
         return self.repository.insert('Doacoes',**data)
