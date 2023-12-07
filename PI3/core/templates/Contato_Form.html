@@ -13,10 +13,16 @@
             <img src="{% static 'img/logo.png' %}" style="width: 80px;" alt="Logo da Empresa">
         </div>
         <div class="header-buttons">
-            <button>Login</button>
-            <button>Cadastro</button>
+            {%if session%}
+            <button>{{session}}</button>
+            <button onclick="window.location.href='logout'">Sair</button>
+            <button onclick="window.location.href='doacao_alimento'">Doar Alimento</button>
+            <button onclick="window.location.href='relatorios'">Relatórios</button>
+            {%else%}
+            <button onclick="window.location.href='login'">Login</button>
+            <button onclick="window.location.href='/'">Cadastro</button>
+            {%endif%}
             <button>Contato</button>
-            <button class="extra-button">QUERO DOAR</button>
         </div>
     </header>
 

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Cadastro.css' %}">
+    
+    
+    <title>Pagina de Login</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{% static 'img/logo.png' %}" style="width: 80px;" alt="Logo da Empresa">
+        </div>
+        <div class="header-buttons">
+            <button>Contato</button>
+            <button onclick="window.location.href='/'">Cadastro</button>
+            <button onclick="window.location.href='login'">Login</button>
+            <button class= 'extra-button' onclick="window.location.href='doacao_alimento'">QUERO DOAR</button>
+        </div>
+    </header>
+    <div class="container">
+        <div class="image">
+        <img src="{% static 'img/cadastro3.jpg' %}" alt="Imagem de Cadastro">
+        </div>
+        <div class="form">
+            <h1>Login</h1>
+            <form method="POST" action="{% url 'login_admin' %}">
+                {% csrf_token %}
+        
+                {{form.as_p}}
+                {{erro}}
+                
+        
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <div class="contact-info">
+            <div class="info">
+            <img src="{% static 'img/telefone_icone.png' %}" alt="Imagem de Cadastro">
+                <p>(11) 1234-5678</p>
+            </div>
+            <div class="info">
+            <img src="{% static 'img/email_icone.png' %}" alt="Imagem de Cadastro">
+                <p>food.share2023@gmail.com</p>
+            </div>
+            <div class="info">
+            <img src="{% static 'img/endereço_icone.png' %}" alt="Imagem de Cadastro">
+                <p>Rua da Empresa, 123</p>
+            </div>
+        </div>
+        <p class="credit">Crédito da imagem: Nome do Autor / Freepik</p>
+    </footer>
+</body>
+</html>

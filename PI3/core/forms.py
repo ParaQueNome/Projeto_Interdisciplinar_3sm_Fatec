@@ -316,4 +316,7 @@ class DoacaoEstoqueForm(forms.Form):
             raise forms.ValidationError("Estabelecimento não pode ser numerico")
         return estabelecimento
     
-        
+class AdminForm(forms.Form):
+
+    login = forms.CharField(max_length=18, required=True, widget=forms.TextInput(attrs={'placeholder': 'Usuario','id': 'login'}))
+    password = forms.CharField(max_length=25, required=True, widget=forms.TextInput(attrs={'type': 'password'}))

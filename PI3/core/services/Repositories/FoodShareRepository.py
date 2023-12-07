@@ -21,7 +21,9 @@ class FoodShareRepository():
         self.conexao.update(collection_name,condicao, **kwargs)
     def delete(self, collection_name,condicao, **kwargs):
         self.conexao.delete(collection_name,condicao, **kwargs)
-        
+    
+    def execute_aggregation(self, collection_name, pipeline):
+        return self.conexao.execute_aggregation(collection_name, pipeline)
     
     def closeConnection(self):
         self.conexao.closeConnection()

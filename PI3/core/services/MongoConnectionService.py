@@ -34,6 +34,11 @@ class MongoConnectionService:
 
         collection = self.db[colletion_name]
         return collection.find(kwargs)
+    def execute_aggregation(self, collection_name, pipeline):
+        collection = self.db[collection_name]
+        resultado_agregacao = collection.aggregate(pipeline)
+
+        return resultado_agregacao
     
     def closeConnection(self):
         return self.client.close()

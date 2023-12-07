@@ -17,12 +17,12 @@
         <div class="header-buttons">
             {%if session%}
             <button>{{session}}</button>
-            <button>Logout</button>
+            <button onclick="window.location.href='logout'">Sair</button>
             <button onclick="window.location.href='doacao_alimento'">Doar Alimento</button>
             <button onclick="window.location.href='relatorios'">Relatórios</button>
             {%else%}
-            <button>Login</button>
-            <button>Cadastro</button>
+            <button onclick="window.location.href='login'">Login</button>
+            <button onclick="window.location.href='/'">Cadastro</button>
             {%endif%}
             <button>Contato</button>
         </div>
@@ -62,7 +62,7 @@
                 </label><br><br>
         
                 <div style="display: flex; justify-content: center;">
-                    <button type="submit" class="doar-button">DOAR</button>
+                    <button type="submit" class="doar-button">Registrar</button>
                 </div>
             </form>
         </div>

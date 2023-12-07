@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from bson import ObjectId
 from django.http import HttpResponse, JsonResponse
-from .forms import EmpresaForm, PessoaForm, DoacaoForm, LoginForm, DoacaoAlimentoForm, DoacaoEstoqueForm
+from .forms import EmpresaForm, PessoaForm, DoacaoForm, LoginForm, DoacaoAlimentoForm, DoacaoEstoqueForm, AdminForm
 from .services .ConexaoService import ConexaoService
 from .services .MongoConnectionService import MongoConnectionService
 from .services.Repositories.FoodShareRepository import FoodShareRepository
@@ -201,8 +201,8 @@ def processar_atualizacao(request, alimento_id):
     return redirect('relatorio')
 
 def registrarDoacao(request):
-    if 'user_id' not in request.session and 'username' != 'admin':
-        return redirect('login')
+    if request.session.get('username') != 'admin':
+        return redirect('login_admin')
     if request.method == 'POST':
         form = DoacaoEstoqueForm(request.POST)
         if form.is_valid():
@@ -212,11 +212,37 @@ def registrarDoacao(request):
             doacao = AdminService(repository)
             erro = doacao.insert(form.cleaned_data)
             if erro is None:
-                return redirect('doacao')
+                return redirect('doacao_alimento')
         else:
             return render(request, 'registroDoacao.html', {'form': form})
         
     form = DoacaoEstoqueForm()
     return render(request, 'registroDoacao.html',{'form':form,'session': request.session.get('username')})
     
-        
+
+def logout(request):
+    if 'user_id' not in request.session:
+        return redirect('login')
+    request.session.flush()
+    return redirect('login')
+
+def admin_login(request):
+    if request.method == 'POST':
+        form = AdminForm(request.POST)
+        if form.is_valid():
+            connection = ConexaoService()
+            bd = MongoConnectionService(connection,"FoodShare")
+            repository = FoodShareRepository(bd)
+            login = AdminService(repository)
+            erro = login.login(form.cleaned_data['login'],form.cleaned_data['password'])
+            if not erro:
+                context = {'form':form, 'erro':'Credenciais inválidas'}
+                return render(request, 'login_admin.html', context)
+            session = login.sessionInit(request,form.cleaned_data)
+            if session is None:
+                return redirect('registroDoacao') 
+        else:
+            return render(request, 'login_admin.html',{'form':form})
+    form = AdminForm()
+    return render(request, 'login_admin.html',{'form':form})
+

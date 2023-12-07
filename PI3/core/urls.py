@@ -15,4 +15,6 @@ urlpatterns = [
     path('editarDoacao/<str:alimento_id>',views.editarDoacao, name='editarDoacao'),
     path('processar_atualizacao/<str:alimento_id>',views.processar_atualizacao, name='processar_atualizacao'),
     path('registroDoacao', views.registrarDoacao, name='registroDoacao'),
+    path('logout', views.logout, name='logout'),
+    path('login_admin',views.admin_login, name='login_admin'),
 ]

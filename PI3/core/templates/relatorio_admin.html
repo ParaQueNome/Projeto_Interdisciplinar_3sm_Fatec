@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Página de Doação</title>
+    
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Doacao.css' %}">
+</head>
+
+<body>
+    <header>
+        <!-- Cabeçalho -->
+        <div class="logo">
+            <img src="{% static 'img/logo.png' %}" style="width: 80px;" alt="Logo da Empresa">
+        </div>
+        <div class="header-buttons">
+            {%if session%}
+            <button>{{session}}</button>
+            <button onclick="window.location.href='logout'">Sair</button>
+            <button onclick="window.location.href='doacao_alimento'">Doar Alimento</button>
+            <button onclick="window.location.href='relatorios'">Relatórios</button>
+            {%else%}
+            <button onclick="window.location.href='login'">Login</button>
+            <button onclick="window.location.href='/'">Cadastro</button>
+            {%endif%}
+            <button>Contato</button>
+        </div>
+    </header>
+
+    <!-- Seu código HTML existente ... -->
+
+    <div class="relatorio-section">
+        <h2>Relatório de Alimentos Cadastrados</h2>
+
+        <!-- Adicione o formulário de busca por data -->
+        <form method="GET" action="{% url 'relatorio_admin' %}">
+            <label for="data_inicial">Data Inicial:</label>
+            <input type="date" id="data_inicial" name="data_inicial">
+
+            <label for="data_final">Data Final:</label>
+            <input type="date" id="data_final" name="data_final">
+
+            <button type="submit">Buscar</button>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Tipo Alimento</th>
+                    <th>Nome Produto</th>
+                    <th>Marca</th>
+                    <th>Data Validade</th>
+                    <th>status</th>
+                    <th>Editar</th>
+                    <th>Excluir</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% for alimento in alimentos %}
+                    
+                    <tr>
+                        <td>{{ alimento.tipoAlimento }}</td>
+                        <td>{{ alimento.nome }}</td>
+                        <td>{{ alimento.marca }}</td>
+                        <td>{{ alimento.data_validade }}</td>
+                        <td>{{ alimento.status }}</td>
+                        {% if alimento.status == 'Pendente' %}
+                        <td><a href="{% url 'editarDoacao' alimento_id=alimento.id %}" class="editar-button">Editar</a></td>
+                        <td><a href="{% url 'remover_alimento' alimento_id=alimento.id %}" class="excluir-button">Excluir</a></td>
+                        {%else%}
+    
+                        <td><a href="{% url 'remover_alimento' alimento_id=alimento.id %}" class="excluir-button">Excluir</a></td>
+                        {%endif%}
+                    </tr>
+                    
+                {% endfor %}
+                
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Seu código HTML existente ... -->
+
+    <footer>
+        <!-- Rodapé -->
+        <div class="contact-info">
+            <div class="info">
+                <img src="{% static 'img/telefone_icone.png' %}" alt="Imagem de Telefone">
+                <p>(11) 1234-5678</p>
+            </div>
+            <div class="info">
+                <img src="{% static 'img/email_icone.png' %}" alt="Imagem de Cadastro">
+                <p>contato@empresa.com</p>
+            </div>
+            <div class="info">
+                <img src="{% static 'img/endereço_icone.png' %}" alt="Imagem de Cadastro">
+                <p>Rua da Empresa, 123</p>
+            </div>
+        </div>
+        <p class="credit">Crédito da imagem: Nome do Autor / Freepik</p>
+    </footer>
+</body>
+
+</html>
